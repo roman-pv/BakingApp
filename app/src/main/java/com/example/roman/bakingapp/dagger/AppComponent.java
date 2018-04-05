@@ -4,17 +4,19 @@ import android.app.Application;
 
 import com.example.roman.bakingapp.BakingApp;
 
+import javax.inject.Singleton;
+
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 
+@Singleton
 @Component(modules = {
         AndroidInjectionModule.class,
         NetworkModule.class,
         AppModule.class,
-        ActivityBuilder.class
-})
+        ActivityBuilder.class})
 public interface AppComponent extends AndroidInjector<BakingApp>{
 
     @Component.Builder

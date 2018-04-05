@@ -19,12 +19,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
     @Provides
+    @Singleton
     Gson provideGson() {
         return new GsonBuilder()
                 .create();
     }
 
     @Provides
+    @Singleton
     Retrofit provideRetrofit(Gson gson) {
         return new Retrofit.Builder()
                 .baseUrl(RecipesApi.BASE_URL)
@@ -33,11 +35,13 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     RecipesApi provideMovieDatabaseApi(Retrofit retrofit) {
         return retrofit.create(RecipesApi.class);
     }
 
     @Provides
+    @Singleton
     Picasso providePicasso(Context context) {
         return new Picasso.Builder(context)
                 .build();
