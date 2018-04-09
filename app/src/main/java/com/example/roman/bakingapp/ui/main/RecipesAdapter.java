@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.Recipe;
-import com.example.roman.bakingapp.databinding.RecyclerViewItemBinding;
+import com.example.roman.bakingapp.databinding.RecyclerViewRecipeItemBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
     @Override
     public RecipesAdapter.RecipesAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(
-                R.layout.recycler_view_item, viewGroup, false);
+                R.layout.recycler_view_recipe_item, viewGroup, false);
         view.setFocusable(true);
         return new RecipesAdapterViewHolder(view);
     }
@@ -68,6 +68,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
                 .getQuantityString(R.plurals.servings, numberOfServings, numberOfServings));
         holder.binding.stepsTextView.setText(mContext.getResources()
                 .getQuantityString(R.plurals.steps, numberOfSteps, numberOfSteps));
+
+
+
     }
 
     @Override
@@ -89,7 +92,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
     }
 
     class RecipesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final RecyclerViewItemBinding binding;
+        public final RecyclerViewRecipeItemBinding binding;
 
         public RecipesAdapterViewHolder(View view) {
             super(view);

@@ -1,11 +1,15 @@
 package com.example.roman.bakingapp.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -15,10 +19,10 @@ public class Recipe {
     private String name;
     @SerializedName("ingredients")
     @Expose
-    private List<Ingredient> ingredients = null;
+    private List<Ingredient> ingredients;
     @SerializedName("steps")
     @Expose
-    private List<Step> steps = null;
+    private List<Step> steps;
     @SerializedName("servings")
     @Expose
     private Integer servings;
@@ -73,4 +77,40 @@ public class Recipe {
     public String getImage() {
         return image;
     }
+
+    public Recipe(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.ingredients = new ArrayList<Ingredient>();
+        in.readTypedList(ingredients, Ingredient.CREATOR);
+        this.steps = new ArrayList<Step>();
+        in.readTypedList(steps, Step.CREATOR);
+        this.servings = in.readInt();
+        this.image = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeString(name);
+        out.writeTypedList(ingredients);
+        out.writeTypedList(steps);
+        out.writeInt(servings);
+        out.writeString(image);
+    }
+
+    public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
 }

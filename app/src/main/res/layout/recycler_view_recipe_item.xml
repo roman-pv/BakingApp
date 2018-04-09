@@ -46,7 +46,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="@string/steps"
+                tools:text="@string/steps"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 app:layout_constraintTop_toBottomOf="@+id/recipe_title_text_view" />
 
@@ -57,7 +57,7 @@
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:paddingStart="16dp"
-                android:text="@string/servings"
+                tools:text="@string/servings"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 app:layout_constraintTop_toBottomOf="@+id/steps_text_view" />
 
