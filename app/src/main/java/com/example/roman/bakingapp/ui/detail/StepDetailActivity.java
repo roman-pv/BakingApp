@@ -27,18 +27,15 @@ implements HasSupportFragmentInjector {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_detail);
 
-        Recipe recipe = getIntent().getParcelableExtra(MainActivity.EXTRA_RECIPE);
-        int stepNum = getIntent().getIntExtra("step_num", 0);
+        if (savedInstanceState == null) {
+            Bundle bundle = getIntent().getExtras();
+            StepsDetailsFragment stepsFragment = new StepsDetailsFragment();
+            stepsFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.steps_details_fragment, stepsFragment)
+                    .commit();
+        }
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(MainActivity.EXTRA_RECIPE, recipe);
-        bundle.putInt("step_num", stepNum);
-
-        StepsDetailsFragment stepsFragment = new StepsDetailsFragment();
-        stepsFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.steps_details_fragment, stepsFragment)
-                .commit();
     }
 
     @Override

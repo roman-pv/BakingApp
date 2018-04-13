@@ -57,6 +57,15 @@ public class StepsOverviewFragment extends Fragment
             mBinding.recipeTitleTextView.setText(mRecipe.getName());
         }
 
+        mBinding.ingredientsTitleTextView.setOnClickListener((View v) -> {
+            Intent intent = new Intent(getActivity(), StepDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("step_num", StepsDetailsFragment.INGREDIENTS_VIEW);
+            bundle.putParcelable(MainActivity.EXTRA_RECIPE, mRecipe);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
+
         return view;
 
     }
@@ -79,8 +88,10 @@ public class StepsOverviewFragment extends Fragment
     public void onItemClick(Step step) {
 
         Intent intent = new Intent(getActivity(), StepDetailActivity.class);
-        intent.putExtra("step_num", step.getId());
-        intent.putExtra(MainActivity.EXTRA_RECIPE, mRecipe);
+        Bundle bundle = new Bundle();
+        bundle.putInt("step_num", step.getId());
+        bundle.putParcelable(MainActivity.EXTRA_RECIPE, mRecipe);
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }

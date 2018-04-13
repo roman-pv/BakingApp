@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onItemClick(Recipe recipe) {
         Intent recipesDetailsIntent = new Intent(this, DetailActivity.class);
-        recipesDetailsIntent.putExtra(EXTRA_RECIPE, recipe);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_RECIPE, recipe);
+        recipesDetailsIntent.putExtras(bundle);
         startActivity(recipesDetailsIntent);
     }
 

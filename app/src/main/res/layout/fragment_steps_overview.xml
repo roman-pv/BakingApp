@@ -24,8 +24,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@color/colorPrimary" />
+                    android:layout_height="1dp"
+                    android:background="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ingredients_title_text_view"
@@ -38,8 +38,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@color/colorPrimary" />
+                    android:layout_height="1dp"
+                    android:background="@android:color/black" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_steps"

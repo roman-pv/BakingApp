@@ -30,12 +30,7 @@ public class DetailActivity extends AppCompatActivity implements HasSupportFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Recipe recipe = getIntent().getParcelableExtra(MainActivity.EXTRA_RECIPE);
-
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(MainActivity.EXTRA_RECIPE, recipe);
-
+        Bundle bundle = getIntent().getExtras();
         StepsOverviewFragment stepsFragment = new StepsOverviewFragment();
         stepsFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()

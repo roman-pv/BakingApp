@@ -3,12 +3,14 @@ package com.example.roman.bakingapp.ui.main;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.Recipe;
+import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.RecyclerViewRecipeItemBinding;
 import com.squareup.picasso.Picasso;
 
@@ -68,7 +70,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
                 .getQuantityString(R.plurals.servings, numberOfServings, numberOfServings));
         holder.binding.stepsTextView.setText(mContext.getResources()
                 .getQuantityString(R.plurals.steps, numberOfSteps, numberOfSteps));
-
 
 
     }
