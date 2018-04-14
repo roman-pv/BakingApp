@@ -15,6 +15,7 @@ import dagger.android.AndroidInjector;
 @Component(modules = {
         AndroidInjectionModule.class,
         NetworkModule.class,
+        DatabaseModule.class,
         AppModule.class,
         ActivityBuilder.class})
 public interface AppComponent extends AndroidInjector<BakingApp>{

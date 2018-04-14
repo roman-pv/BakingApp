@@ -1,13 +1,58 @@
 package com.example.roman.bakingapp.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 
-public class Ingredient implements Parcelable {
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
+@Entity(tableName = "ingredients",
+        indices = {@Index("id"), @Index("recipeId")},
+        foreignKeys = @ForeignKey(entity = RecipeEntity.class,
+                parentColumns = "id",
+                childColumns = "recipeId",
+                onDelete = CASCADE))
+public class Ingredient {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private Integer recipeId;
     private double quantity;
     private String measure;
     private String ingredient;
+
+    public Ingredient(int id, Integer recipeId, double quantity, String measure, String ingredient) {
+        this.id = id;
+        this.recipeId = recipeId;
+        this.quantity = quantity;
+        this.measure = measure;
+        this.ingredient = ingredient;
+    }
+
+    @Ignore
+    public Ingredient(double quantity, String measure, String ingredient) {
+        this.quantity = quantity;
+        this.measure = measure;
+        this.ingredient = ingredient;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Integer getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Integer recipeId) {
+        this.recipeId = recipeId;
+    }
 
     public double getQuantity() {
         return quantity;
@@ -33,30 +78,4 @@ public class Ingredient implements Parcelable {
         this.ingredient = ingredient;
     }
 
-    public Ingredient(Parcel in) {
-        this.quantity = in.readDouble();
-        this.measure = in.readString();
-        this.ingredient = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeDouble(quantity);
-        out.writeString(measure);
-        out.writeString(ingredient);
-    }
-
-    public static final Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
-        public Ingredient createFromParcel(Parcel in) {
-            return new Ingredient(in);
-        }
-        public Ingredient[] newArray(int size) {
-            return new Ingredient[size];
-        }
-    };
 }

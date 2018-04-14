@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.Recipe;
+import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.RecyclerViewRecipeItemBinding;
 import com.squareup.picasso.Picasso;
@@ -19,7 +20,7 @@ import java.util.List;
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesAdapterViewHolder> {
 
     private Context mContext;
-    private List<Recipe> mRecipes;
+    private List<RecipeWithStepsAndIngredients> mRecipes;
     private Picasso mPicasso;
     private RecipesAdapterOnItemClickHandler mClickHandler;
 
@@ -44,7 +45,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
     @Override
     public void onBindViewHolder(RecipesAdapter.RecipesAdapterViewHolder holder, int position) {
 
-        Recipe currentRecipe = mRecipes.get(position);
+        RecipeWithStepsAndIngredients currentRecipe = mRecipes.get(position);
 
         String image = currentRecipe.getImage();
         String recipeName = currentRecipe.getName();
@@ -80,7 +81,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
         else return mRecipes.size();
     }
 
-    void swapRecipesList(List<Recipe> newRecipes) {
+    void swapRecipesList(List<RecipeWithStepsAndIngredients> newRecipes) {
         mRecipes = newRecipes;
         notifyDataSetChanged();
     }
@@ -89,7 +90,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
      * The interface that receives onReviewItemClick messages.
      */
     public interface RecipesAdapterOnItemClickHandler {
-        void onItemClick(Recipe recipe);
+        void onItemClick(int id);
     }
 
     class RecipesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -104,8 +105,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            Recipe recipe = mRecipes.get(adapterPosition);
-            mClickHandler.onItemClick(recipe);
+            int id = mRecipes.get(adapterPosition).getId();
+            mClickHandler.onItemClick(id);
         }
     }
 

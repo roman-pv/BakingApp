@@ -1,5 +1,6 @@
 package com.example.roman.bakingapp.ui.detail;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -16,8 +17,10 @@ import android.view.ViewGroup;
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.Recipe;
+import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.FragmentStepsDetailsBinding;
+import com.example.roman.bakingapp.ui.ViewModelFactory;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -29,21 +32,26 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import javax.inject.Inject;
+
 import dagger.android.support.AndroidSupportInjection;
 
 /**
  *
  */
-public class StepsDetailsFragment extends Fragment {
+public class RecipeDetailsFragment extends Fragment {
 
     private FragmentStepsDetailsBinding mBinding;
 
     public static final int INGREDIENTS_VIEW = -1;
     private static final String PLAYBACK_POSITION_KEY =
             "com.example.roman.bakingapp.ui.detail.playback_position";
+    private static final String PLAY_WHEN_READY_KEY =
+            "com.example.roman.bakingapp.ui.detail.play_when_ready";
 
     private int mCurrentStepNumber;
-    private Recipe mRecipe;
+    private RecipeWithStepsAndIngredients mRecipe;
+    private int mRecipeId;
 
     private boolean mIsVideo;
 
@@ -51,6 +59,12 @@ public class StepsDetailsFragment extends Fragment {
     private long mPlaybackPosition;
     private int mCurrentWindow;
     private boolean mPlayWhenReady = true;
+
+    @Inject
+    ViewModelFactory mFactory;
+
+    StepsViewModel mViewModel;
+
 
 
     @Override
@@ -66,24 +80,70 @@ public class StepsDetailsFragment extends Fragment {
                 inflater, R.layout.fragment_steps_details, container, false);
         View view = mBinding.getRoot();
 
-        if (getArguments() != null) {
-            mRecipe = getArguments().getParcelable(MainActivity.EXTRA_RECIPE);
-            mCurrentStepNumber = getArguments().getInt("step_num");
+        mViewModel = ViewModelProviders.of(this, mFactory)
+                .get(StepsViewModel.class);
 
+        if (getArguments() != null) {
+            mCurrentStepNumber = getArguments().getInt("step_num");
+            mRecipeId = getArguments().getInt(MainActivity.EXTRA_RECIPE_ID);
+        }
+
+        if (savedInstanceState != null) {
+            mPlaybackPosition = savedInstanceState.getLong(PLAYBACK_POSITION_KEY);
+            mPlayWhenReady = savedInstanceState.getBoolean(PLAY_WHEN_READY_KEY);
+        }
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.getRecipe(mRecipeId).observe(this, recipe -> {
+            mRecipe = recipe;
             checkAndCorrectStepNumber();
             displayCurrentStepInfo();
-
             if (mIsVideo) {
                 mBinding.stepVideoView.setVisibility(View.VISIBLE);
                 mBinding.stepVideoPlaceholder.setVisibility(View.GONE);
-
-                if (savedInstanceState != null) {
-                    mPlaybackPosition = savedInstanceState.getLong(PLAYBACK_POSITION_KEY);
-                }
+                initializePlayer();
             }
-        }
-        return view;
+        });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mPlayer != null) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (mPlayer != null) {
+            mPlaybackPosition = mPlayer.getCurrentPosition();
+            mPlayWhenReady = mPlayer.getPlayWhenReady();
+        }
+        outState.putLong(PLAYBACK_POSITION_KEY, mPlaybackPosition);
+        outState.putBoolean(PLAY_WHEN_READY_KEY, mPlayWhenReady);
+
+    }
+
 
     private void checkAndCorrectStepNumber() {
         if (mCurrentStepNumber >= mRecipe.getSteps().size()) {
@@ -93,49 +153,7 @@ public class StepsDetailsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (Util.SDK_INT > 23) {
-            if (mIsVideo) {
-                initializePlayer();
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (Util.SDK_INT <= 23) {
-            if (mIsVideo) {
-                initializePlayer();
-            }
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (Util.SDK_INT <= 23) {
-            releasePlayer();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Util.SDK_INT > 23) {
-            releasePlayer();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putLong(PLAYBACK_POSITION_KEY, mPlaybackPosition);
-    }
-
     private void displayCurrentStepInfo() {
-
         if (mCurrentStepNumber == INGREDIENTS_VIEW) {
             mIsVideo = false;
             mBinding.stepVideoView.setVisibility(View.GONE);

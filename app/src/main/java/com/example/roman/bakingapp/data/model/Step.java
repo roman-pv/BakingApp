@@ -1,13 +1,28 @@
 package com.example.roman.bakingapp.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Step implements Parcelable{
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-    private int id;
+@Entity(tableName = "steps",
+        primaryKeys = {"id", "recipeId"},
+        //indices = {@Index("id"), @Index("recipeId")},
+        foreignKeys = @ForeignKey(entity = RecipeEntity.class,
+                parentColumns = "id",
+                childColumns = "recipeId",
+                onDelete = CASCADE))
+public class Step {
+    @NonNull
+    private Integer id;
+    @NonNull
+    private Integer recipeId;
     private String shortDescription;
     private String description;
     @SerializedName("videoURL")
@@ -15,11 +30,37 @@ public class Step implements Parcelable{
     @SerializedName("thumbnailURL")
     private String thumbnailUrl;
 
-    public int getId() {
+    public Step(Integer id, Integer recipeId, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
+        this.id = id;
+        this.recipeId = recipeId;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.videoUrl = videoUrl;
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    @Ignore
+    public Step(Integer id, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
+        this.id = id;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.videoUrl = videoUrl;
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public Integer getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Integer recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,34 +96,4 @@ public class Step implements Parcelable{
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Step(Parcel in) {
-        this.id = in.readInt();
-        this.shortDescription = in.readString();
-        this.description = in.readString();
-        this.videoUrl = in.readString();
-        this.thumbnailUrl = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(id);
-        out.writeString(shortDescription);
-        out.writeString(description);
-        out.writeString(videoUrl);
-        out.writeString(thumbnailUrl);
-    }
-
-    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
-        public Step createFromParcel(Parcel in) {
-            return new Step(in);
-        }
-        public Step[] newArray(int size) {
-            return new Step[size];
-        }
-    };
 }

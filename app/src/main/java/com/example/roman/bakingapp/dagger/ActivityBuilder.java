@@ -1,9 +1,8 @@
 package com.example.roman.bakingapp.dagger;
 
-import com.example.roman.bakingapp.ui.detail.DetailActivity;
-import com.example.roman.bakingapp.ui.detail.DetailActivityModule;
-import com.example.roman.bakingapp.ui.detail.DetailFragmentsProvider;
-import com.example.roman.bakingapp.ui.detail.StepDetailActivity;
+import com.example.roman.bakingapp.ui.detail.FragmentsProvider;
+import com.example.roman.bakingapp.ui.detail.RecipeDetailsActivity;
+import com.example.roman.bakingapp.ui.detail.StepsActivity;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 import com.example.roman.bakingapp.ui.main.MainActivityModule;
 
@@ -16,10 +15,10 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity bindMainActivity();
 
-    @ContributesAndroidInjector(modules = {DetailActivityModule.class, DetailFragmentsProvider.class})
-    abstract DetailActivity bindDetailActivity();
+    @ContributesAndroidInjector(modules = {FragmentsProvider.class})
+    abstract StepsActivity bindDetailActivity();
 
-    @ContributesAndroidInjector(modules = {DetailFragmentsProvider.class})
-    abstract StepDetailActivity bindStepDetailActivity();
+    @ContributesAndroidInjector(modules = {FragmentsProvider.class})
+    abstract RecipeDetailsActivity bindStepDetailActivity();
 
 }

@@ -1,4 +1,4 @@
-package com.example.roman.bakingapp.ui.main;
+package com.example.roman.bakingapp.ui.detail;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
@@ -11,13 +11,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivityViewModel extends ViewModel {
+public class RecipeDetailsViewModel extends ViewModel {
 
     private DataRepository mRepository;
     private Application mApplication;
 
     @Inject
-    public MainActivityViewModel(DataRepository repository, Application application) {
+    public RecipeDetailsViewModel(DataRepository repository, Application application) {
         this.mRepository = repository;
         this.mApplication = application;
     }
@@ -25,6 +25,4 @@ public class MainActivityViewModel extends ViewModel {
     public LiveData<List<RecipeWithStepsAndIngredients>> getRecipes() {
         return mRepository.getRecipes();
     }
-
-
 }

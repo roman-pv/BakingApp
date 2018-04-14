@@ -4,11 +4,11 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class DetailFragmentsProvider {
+public abstract class FragmentsProvider {
 
     @ContributesAndroidInjector()
-    abstract StepsDetailsFragment provideStepsDetailsFragmentFactory();
+    abstract RecipeDetailsFragment provideStepsDetailsFragmentFactory();
 
     @ContributesAndroidInjector()
-    abstract StepsOverviewFragment provideStepsOverviewFragmentFactory();
+    abstract StepsFragment provideStepsOverviewFragmentFactory();
 }

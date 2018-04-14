@@ -1,5 +1,6 @@
 package com.example.roman.bakingapp.ui.detail;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -12,18 +13,20 @@ import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.Recipe;
+import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.FragmentStepsOverviewBinding;
+import com.example.roman.bakingapp.ui.ViewModelFactory;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
 /**
  *
  */
-public class StepsOverviewFragment extends Fragment
+public class StepsFragment extends Fragment
         implements StepsAdapter.StepsAdapterOnItemClickHandler {
 
     private StepsAdapter mAdapter;
@@ -31,7 +34,12 @@ public class StepsOverviewFragment extends Fragment
 
     private FragmentStepsOverviewBinding mBinding;
 
-    private Recipe mRecipe;
+    private int mRecipeId;
+
+    @Inject
+    ViewModelFactory mFactory;
+
+    StepsViewModel mViewModel;
 
 
     @Override
@@ -51,17 +59,20 @@ public class StepsOverviewFragment extends Fragment
         setupStepsAdapter();
 
         if (getArguments() != null) {
-            mRecipe = getArguments().getParcelable(MainActivity.EXTRA_RECIPE);
-            mAdapter.swapStepsList(mRecipe.getSteps());
-
-            mBinding.recipeTitleTextView.setText(mRecipe.getName());
+            mRecipeId = getArguments().getInt(MainActivity.EXTRA_RECIPE_ID);
+            mViewModel = ViewModelProviders.of(this, mFactory)
+                    .get(StepsViewModel.class);
+            mViewModel.getRecipe(mRecipeId).observe(this, recipe -> {
+                mAdapter.swapStepsList(recipe.getSteps());
+                mBinding.recipeTitleTextView.setText(recipe.getName());
+                });
         }
 
         mBinding.ingredientsTitleTextView.setOnClickListener((View v) -> {
-            Intent intent = new Intent(getActivity(), StepDetailActivity.class);
+            Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putInt("step_num", StepsDetailsFragment.INGREDIENTS_VIEW);
-            bundle.putParcelable(MainActivity.EXTRA_RECIPE, mRecipe);
+            bundle.putInt("step_num", RecipeDetailsFragment.INGREDIENTS_VIEW);
+            bundle.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
             intent.putExtras(bundle);
             startActivity(intent);
         });
@@ -87,10 +98,10 @@ public class StepsOverviewFragment extends Fragment
     @Override
     public void onItemClick(Step step) {
 
-        Intent intent = new Intent(getActivity(), StepDetailActivity.class);
+        Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("step_num", step.getId());
-        bundle.putParcelable(MainActivity.EXTRA_RECIPE, mRecipe);
+        bundle.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
         intent.putExtras(bundle);
         startActivity(intent);
 
