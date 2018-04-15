@@ -2,9 +2,11 @@ package com.example.roman.bakingapp.ui.main;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.roman.bakingapp.R;
@@ -18,7 +20,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity
-        implements RecipesAdapter.RecipesAdapterOnItemClickHandler{
+        implements RecipesAdapter.RecipesAdapterOnItemClickHandler {
 
     public final static String EXTRA_RECIPE_ID = "com.example.roman.bakingapp.extra.recipe_id";
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private RecipesAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
+    private GridLayoutManager mLayoutManager;
 
     @Inject
     ViewModelFactory mFactory;
@@ -65,8 +67,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupRecipesAdapter() {
-
-        mLayoutManager = new LinearLayoutManager(this);
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mLayoutManager = new GridLayoutManager(this, 2);
+            } else {
+                mLayoutManager = new GridLayoutManager(this, 3);
+            }
+        } else {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mLayoutManager = new GridLayoutManager(this, 1);
+            } else {
+                mLayoutManager = new GridLayoutManager(this, 2);
+            }
+        }
         mBinding.recyclerViewRecipes.setLayoutManager(mLayoutManager);
 
         mAdapter = new RecipesAdapter(this, mPicasso);

@@ -12,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
-import com.example.roman.bakingapp.data.model.Recipe;
-import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
-import com.example.roman.bakingapp.databinding.FragmentStepsOverviewBinding;
+import com.example.roman.bakingapp.databinding.FragmentStepsBinding;
 import com.example.roman.bakingapp.ui.ViewModelFactory;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 
@@ -32,7 +30,7 @@ public class StepsFragment extends Fragment
     private StepsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    private FragmentStepsOverviewBinding mBinding;
+    private FragmentStepsBinding mBinding;
 
     private int mRecipeId;
 
@@ -53,7 +51,7 @@ public class StepsFragment extends Fragment
 
 
         mBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_steps_overview, container, false);
+                inflater, R.layout.fragment_steps, container, false);
         View view = mBinding.getRoot();
 
         setupStepsAdapter();

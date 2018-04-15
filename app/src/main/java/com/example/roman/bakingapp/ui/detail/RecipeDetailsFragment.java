@@ -1,25 +1,24 @@
 package com.example.roman.bakingapp.ui.detail;
 
+import android.annotation.SuppressLint;
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.Ingredient;
-import com.example.roman.bakingapp.data.model.Recipe;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
-import com.example.roman.bakingapp.databinding.FragmentStepsDetailsBinding;
+import com.example.roman.bakingapp.databinding.FragmentRecipeDetailsBinding;
 import com.example.roman.bakingapp.ui.ViewModelFactory;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -30,18 +29,18 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
 
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
 /**
- *
+ * Some lines of code, related to ExoPlayer, were taken from this lesson:
+ * https://codelabs.developers.google.com/codelabs/exoplayer-intro
  */
 public class RecipeDetailsFragment extends Fragment {
 
-    private FragmentStepsDetailsBinding mBinding;
+    private FragmentRecipeDetailsBinding mBinding;
 
     public static final int INGREDIENTS_VIEW = -1;
     private static final String PLAYBACK_POSITION_KEY =
@@ -77,7 +76,7 @@ public class RecipeDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_steps_details, container, false);
+                inflater, R.layout.fragment_recipe_details, container, false);
         View view = mBinding.getRoot();
 
         mViewModel = ViewModelProviders.of(this, mFactory)
@@ -101,17 +100,9 @@ public class RecipeDetailsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mViewModel.getRecipe(mRecipeId).observe(this, recipe -> {
-            mRecipe = recipe;
-            checkAndCorrectStepNumber();
-            displayCurrentStepInfo();
-            if (mIsVideo) {
-                mBinding.stepVideoView.setVisibility(View.VISIBLE);
-                mBinding.stepVideoPlaceholder.setVisibility(View.GONE);
-                initializePlayer();
-            }
-        });
+        mViewModel.getRecipe(mRecipeId).observe(this, this :: handleRecipe);
     }
+
 
     @Override
     public void onResume() {
@@ -142,6 +133,22 @@ public class RecipeDetailsFragment extends Fragment {
         outState.putLong(PLAYBACK_POSITION_KEY, mPlaybackPosition);
         outState.putBoolean(PLAY_WHEN_READY_KEY, mPlayWhenReady);
 
+    }
+
+    private void handleRecipe(RecipeWithStepsAndIngredients recipe) {
+        mRecipe = recipe;
+        checkAndCorrectStepNumber();
+        displayCurrentStepInfo();
+        if (mIsVideo) {
+            mBinding.stepVideoView.setVisibility(View.VISIBLE);
+            mBinding.stepVideoPlaceholder.setVisibility(View.GONE);
+            if (!getResources().getBoolean(R.bool.isTablet) &&
+                    getResources().getConfiguration().orientation
+                    == Configuration.ORIENTATION_LANDSCAPE) {
+                hideSystemUi();
+            }
+            initializePlayer();
+        }
     }
 
 
@@ -186,6 +193,16 @@ public class RecipeDetailsFragment extends Fragment {
         MediaSource mediaSource = buildMediaSourse(uri);
         mPlayer.prepare(mediaSource);
         mPlayer.seekTo(mCurrentWindow, mPlaybackPosition);
+    }
+
+    @SuppressLint("InlinedApi")
+    private void hideSystemUi() {
+        mBinding.stepVideoView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
     private MediaSource buildMediaSourse(Uri uri) {

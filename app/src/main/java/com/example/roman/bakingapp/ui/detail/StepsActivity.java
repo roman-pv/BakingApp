@@ -24,12 +24,14 @@ public class StepsActivity extends AppCompatActivity implements HasSupportFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Bundle bundle = getIntent().getExtras();
-        StepsFragment stepsFragment = new StepsFragment();
-        stepsFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.steps_overview_fragment, stepsFragment)
-                .commit();
+        if (savedInstanceState == null) {
+            Bundle bundle = getIntent().getExtras();
+            StepsFragment stepsFragment = new StepsFragment();
+            stepsFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.steps_overview_fragment, stepsFragment)
+                    .commit();
+        }
 
     }
 
