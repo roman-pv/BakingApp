@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.example.roman.bakingapp.data.DataRepository;
-import com.example.roman.bakingapp.ui.detail.RecipeDetailsViewModel;
 import com.example.roman.bakingapp.ui.detail.StepsViewModel;
 import com.example.roman.bakingapp.ui.main.MainActivityViewModel;
 
@@ -29,8 +28,6 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new MainActivityViewModel(mRepository, mApplication);
         } else if (modelClass.isAssignableFrom(StepsViewModel.class)) {
             return (T) new StepsViewModel(mRepository, mApplication);
-        } else if (modelClass.isAssignableFrom(RecipeDetailsViewModel.class)) {
-            return (T) new RecipeDetailsViewModel(mRepository, mApplication);
         }
 
         throw new IllegalArgumentException(

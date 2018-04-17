@@ -3,6 +3,8 @@ package com.example.roman.bakingapp.dagger;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.example.roman.bakingapp.data.local.RecipeDao;
 import com.example.roman.bakingapp.data.local.RecipeDatabase;
@@ -25,5 +27,11 @@ public class DatabaseModule {
     @Singleton
     RecipeDao provideDao(RecipeDatabase db) {
         return db.recipeDao();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 }

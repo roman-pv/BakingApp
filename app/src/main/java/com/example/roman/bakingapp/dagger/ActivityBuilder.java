@@ -1,5 +1,7 @@
 package com.example.roman.bakingapp.dagger;
 
+import com.example.roman.bakingapp.IngredientsWidgetService;
+import com.example.roman.bakingapp.ListWidgetService;
 import com.example.roman.bakingapp.ui.detail.FragmentsProvider;
 import com.example.roman.bakingapp.ui.detail.RecipeDetailsActivity;
 import com.example.roman.bakingapp.ui.detail.StepsActivity;
@@ -21,4 +23,9 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {FragmentsProvider.class})
     abstract RecipeDetailsActivity bindStepDetailActivity();
 
+    @ContributesAndroidInjector()
+    abstract ListWidgetService bindListWidgetService();
+
+    @ContributesAndroidInjector()
+    abstract IngredientsWidgetService bindIngredientsWidgetService();
 }

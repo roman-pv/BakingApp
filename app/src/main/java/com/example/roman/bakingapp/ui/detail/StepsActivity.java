@@ -31,6 +31,14 @@ public class StepsActivity extends AppCompatActivity implements HasSupportFragme
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.steps_overview_fragment, stepsFragment)
                     .commit();
+
+            if (getResources().getBoolean(R.bool.isTablet)) {
+                RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
+                recipeDetailsFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.steps_details_fragment, recipeDetailsFragment)
+                        .commit();
+            }
         }
 
     }

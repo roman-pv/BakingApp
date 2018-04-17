@@ -54,7 +54,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
         String servings = String.format(mContext.getString(R.string.servings), numberOfServings);
         String steps = String.format(mContext.getString(R.string.steps), numberOfSteps);
 
-        if ( image != null && !image.isEmpty()) {
+        if (image != null && !image.isEmpty()) {
             mPicasso.with(mContext)
                     .load(currentRecipe.getImage())
                     .placeholder(R.drawable.food_placeholder_image)
@@ -91,6 +91,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
      */
     public interface RecipesAdapterOnItemClickHandler {
         void onItemClick(int id);
+
+        void onWidgetButtonClick(int id);
     }
 
     class RecipesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -100,13 +102,18 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
             super(view);
             binding = DataBindingUtil.bind(view);
             view.setOnClickListener(this);
+            binding.widgetButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             int id = mRecipes.get(adapterPosition).getId();
-            mClickHandler.onItemClick(id);
+            if (v.getId() == binding.widgetButton.getId()) {
+                mClickHandler.onWidgetButtonClick(id);
+            } else {
+                mClickHandler.onItemClick(id);
+            }
         }
     }
 

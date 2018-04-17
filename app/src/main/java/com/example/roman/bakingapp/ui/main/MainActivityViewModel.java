@@ -26,5 +26,12 @@ public class MainActivityViewModel extends ViewModel {
         return mRepository.getRecipes();
     }
 
+    public int getRecipeIdPreference() {
+        return mRepository.getRecipeIdPreference();
+    }
+
+    public void setRecipeIdPreference(int recipeId) {
+        mRepository.setRecipeIdPreference(recipeId);
+    }
 
 }

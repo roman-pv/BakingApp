@@ -29,6 +29,9 @@ public abstract class RecipeDao {
     @Query("SELECT * FROM recipes WHERE id = :id")
     public abstract LiveData<RecipeWithStepsAndIngredients> getRecipeById(int id);
 
+    @Query("SELECT * FROM recipes WHERE id = :id")
+    public abstract RecipeWithStepsAndIngredients getRecipeByIdOffline(int id);
+
     public void bulkInsert(List<Recipe> recipes) {
 
         List<RecipeEntity> recipeEntities = new ArrayList<>();

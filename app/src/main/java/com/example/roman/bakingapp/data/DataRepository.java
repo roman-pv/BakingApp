@@ -2,11 +2,15 @@ package com.example.roman.bakingapp.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.roman.bakingapp.AppExecutors;
+import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.local.RecipeDao;
 import com.example.roman.bakingapp.data.local.RecipeDatabase;
+import com.example.roman.bakingapp.data.local.RecipeIdSharedPreferences;
+import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.Recipe;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.remote.RecipesApi;
@@ -26,14 +30,17 @@ public class DataRepository {
     private final RecipesApi mApi;
     private final RecipeDao mDao;
     private final RecipeDatabase mDatabase;
+    private final RecipeIdSharedPreferences mSharedPreferences;
     private final AppExecutors mAppExecutors;
 
     @Inject
     public DataRepository(RecipesApi api, RecipeDao dao, RecipeDatabase database,
+                          RecipeIdSharedPreferences sharedPreferences,
                           AppExecutors appExecutors) {
         this.mApi = api;
         this.mDao = dao;
         this.mDatabase = database;
+        this.mSharedPreferences = sharedPreferences;
         this.mAppExecutors = appExecutors;
 
         MutableLiveData<List<Recipe>> networkData = new MutableLiveData<>();
@@ -55,7 +62,9 @@ public class DataRepository {
         networkData.observeForever(newRecipesFromNetwork -> {
             mAppExecutors.diskIO().execute(() -> {
                 // Insert our new recipes data into the database
-                mDao.bulkInsert(newRecipesFromNetwork);
+                if (newRecipesFromNetwork != null && newRecipesFromNetwork.size() != 0) {
+                    mDao.bulkInsert(newRecipesFromNetwork);
+                }
             });
         });
     }
@@ -68,5 +77,16 @@ public class DataRepository {
         return mDao.getRecipeById(id);
     }
 
+    public RecipeWithStepsAndIngredients getRecipeByIdOffline(int recipeId) {
+        return mDao.getRecipeByIdOffline(recipeId);
+    }
+
+    public int getRecipeIdPreference() {
+        return mSharedPreferences.getRecipeIdPreference();
+    }
+
+    public void setRecipeIdPreference(int recipeId) {
+        mSharedPreferences.setRecipeIdPreference(recipeId);
+    }
 
 }

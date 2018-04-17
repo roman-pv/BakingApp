@@ -1,14 +1,18 @@
 package com.example.roman.bakingapp.ui.main;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
 
+import com.example.roman.bakingapp.IngredientsWidgetProvider;
+import com.example.roman.bakingapp.IngredientsWidgetService;
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.databinding.ActivityMainBinding;
 import com.example.roman.bakingapp.ui.ViewModelFactory;
@@ -64,6 +68,13 @@ public class MainActivity extends AppCompatActivity
         bundle.putInt(EXTRA_RECIPE_ID, id);
         recipesDetailsIntent.putExtras(bundle);
         startActivity(recipesDetailsIntent);
+    }
+
+    @Override
+    public void onWidgetButtonClick(int id) {
+        mViewModel.setRecipeIdPreference(id);
+        IngredientsWidgetService.startActionUpdateIngredientsWidgets(this);
+        Toast.makeText(this, "List of ingredients is added to a widget", Toast.LENGTH_LONG).show();
     }
 
     private void setupRecipesAdapter() {

@@ -45,6 +45,7 @@ public class StepsFragment extends Fragment
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,16 +64,25 @@ public class StepsFragment extends Fragment
             mViewModel.getRecipe(mRecipeId).observe(this, recipe -> {
                 mAdapter.swapStepsList(recipe.getSteps());
                 mBinding.recipeTitleTextView.setText(recipe.getName());
-                });
+            });
         }
 
         mBinding.ingredientsTitleTextView.setOnClickListener((View v) -> {
-            Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("step_num", RecipeDetailsFragment.INGREDIENTS_VIEW);
             bundle.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
-            intent.putExtras(bundle);
-            startActivity(intent);
+
+            if (getResources().getBoolean(R.bool.isTablet)) {
+                RecipeDetailsFragment newFragment = new RecipeDetailsFragment();
+                newFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.steps_details_fragment, newFragment)
+                        .commit();
+            } else {
+                Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
         });
 
         return view;
@@ -95,13 +105,20 @@ public class StepsFragment extends Fragment
 
     @Override
     public void onItemClick(Step step) {
-
-        Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("step_num", step.getId());
         bundle.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
-        intent.putExtras(bundle);
-        startActivity(intent);
 
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            RecipeDetailsFragment newFragment = new RecipeDetailsFragment();
+            newFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.steps_details_fragment, newFragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 }

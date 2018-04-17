@@ -6,7 +6,7 @@
     <string name="steps">It will take you %d steps.</string>
     <string name="servings">And it will get you %d servings.</string>
     <string name="share">Share</string>
-    <string name="explore">Explore</string>
+    <string name="widget">Add to Widget</string>
     <plurals name="steps">
         <item quantity="one">It will take you %d step.</item>
         <item quantity="other">It will take you %d steps.</item>
@@ -17,6 +17,8 @@
     </plurals>
 
     <string name="step_description_template">Step %1$d: %2$s </string>
+
+    <string name="pref_recipe_id_key">recipe_id</string>
 
 
 </resources>
