@@ -38,6 +38,23 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             tools:text="Ingredients"/>
 
+
+            <ImageView
+                android:id="@+id/previous_image_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_arrow_left_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/next_image_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_arrow_right_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
     </android.support.constraint.ConstraintLayout>
 
 </layout>

@@ -83,12 +83,14 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         if (mIngredients == null || mIngredients.size() == 0) return null;
         Ingredient currentIngredient = mIngredients.get(position);
 
-        String quantity = currentIngredient.getQuantity() + " " + currentIngredient.getMeasure();
+                String ingredientString = mContext.getResources().getString(R.string.widget_ingredient,
+                currentIngredient.getIngredient(),
+                Double.toString(currentIngredient.getQuantity()),
+                currentIngredient.getMeasure().toLowerCase());
 
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredients_widget);
 
-        views.setTextViewText(R.id.widget_ingredient_name, currentIngredient.getIngredient());
-        views.setTextViewText(R.id.widget_ingredient_quantity, quantity);
+        views.setTextViewText(R.id.widget_ingredient, ingredientString);
 
         Bundle extras = new Bundle();
         extras.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);

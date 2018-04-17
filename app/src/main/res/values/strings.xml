@@ -20,5 +20,9 @@
 
     <string name="pref_recipe_id_key">recipe_id</string>
 
+    <!-- Texts for an app widget -->
+    <string name="widget_recipe_title">Baking App: %s</string>
+    <string name="widget_ingredient">%1$s: %2$s %3$s</string>
+
 
 </resources>

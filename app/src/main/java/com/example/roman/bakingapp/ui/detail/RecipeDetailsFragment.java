@@ -52,6 +52,8 @@ public class RecipeDetailsFragment extends Fragment {
     private RecipeWithStepsAndIngredients mRecipe;
     private int mRecipeId;
 
+    private boolean mIsTablet;
+
     private boolean mIsVideo;
 
     private ExoPlayer mPlayer;
@@ -79,6 +81,8 @@ public class RecipeDetailsFragment extends Fragment {
                 inflater, R.layout.fragment_recipe_details, container, false);
         View view = mBinding.getRoot();
 
+        mIsTablet = getResources().getBoolean(R.bool.isTablet);
+
         mViewModel = ViewModelProviders.of(this, mFactory)
                 .get(StepsViewModel.class);
 
@@ -92,9 +96,30 @@ public class RecipeDetailsFragment extends Fragment {
             mPlayWhenReady = savedInstanceState.getBoolean(PLAY_WHEN_READY_KEY);
         }
 
-
+        if (!mIsTablet && getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT) {
+            mBinding.previousImageView.setOnClickListener((View v) -> {
+                int stepNumber = mCurrentStepNumber - 1;
+                changeStep(stepNumber);
+            });
+            mBinding.nextImageView.setOnClickListener((View v) -> {
+                int stepNumber = mCurrentStepNumber + 1;
+                changeStep(stepNumber);
+            });
+        }
 
         return view;
+    }
+
+    private void changeStep(int newStepNumber) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("step_num", newStepNumber);
+        bundle.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
+        RecipeDetailsFragment stepsFragment = new RecipeDetailsFragment();
+        stepsFragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.steps_details_fragment, stepsFragment)
+                .commit();
     }
 
     @Override
@@ -142,7 +167,7 @@ public class RecipeDetailsFragment extends Fragment {
         if (mIsVideo) {
             mBinding.stepVideoView.setVisibility(View.VISIBLE);
             mBinding.stepVideoPlaceholder.setVisibility(View.GONE);
-            if (!getResources().getBoolean(R.bool.isTablet) &&
+            if (!mIsTablet &&
                     getResources().getConfiguration().orientation
                     == Configuration.ORIENTATION_LANDSCAPE) {
                 hideSystemUi();
@@ -163,7 +188,7 @@ public class RecipeDetailsFragment extends Fragment {
     private void displayCurrentStepInfo() {
         if (mCurrentStepNumber == INGREDIENTS_VIEW) {
             mIsVideo = false;
-            mBinding.stepVideoView.setVisibility(View.GONE);
+            mBinding.stepVideoView.setVisibility(View.INVISIBLE);
             for (Ingredient ingredient : mRecipe.getIngredients()) {
                 String line = ingredient.getQuantity() + ingredient.getMeasure() +
                         ": " + ingredient.getIngredient() + "\n\n";

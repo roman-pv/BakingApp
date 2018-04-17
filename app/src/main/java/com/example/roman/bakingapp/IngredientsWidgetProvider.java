@@ -42,7 +42,9 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 //        views.setOnClickPendingIntent(R.id.widget_view, pendingIntent);
         // Handle empty gardens
         //views.setEmptyView(R.id.widget_list_view, R.id.empty_view);
-        views.setTextViewText(R.id.widget_recipe_title_text_view, recipe.getName());
+        String title = context.getResources().getString(R.string.widget_recipe_title,
+                recipe.getName());
+        views.setTextViewText(R.id.widget_recipe_title_text_view, title);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
