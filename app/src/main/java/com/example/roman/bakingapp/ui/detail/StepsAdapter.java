@@ -40,14 +40,13 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapter
 
         Step currentStep = mSteps.get(position);
 
-        int number = currentStep.getId();
         String shortDescription = currentStep.getShortDescription();
 
-        String stepDescription = mContext.getResources().getString(
-                R.string.step_description_template,
-                number, shortDescription);
+        holder.binding.stepDescriptionTextView.setText(shortDescription);
 
-        holder.binding.stepDescriptionTextView.setText(stepDescription);
+        if (position == 0) {
+            holder.binding.circle.setVisibility(View.INVISIBLE);
+        }
 
 
 

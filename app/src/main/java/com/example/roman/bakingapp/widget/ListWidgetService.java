@@ -83,7 +83,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         if (mIngredients == null || mIngredients.size() == 0) return null;
         Ingredient currentIngredient = mIngredients.get(position);
 
-                String ingredientString = mContext.getResources().getString(R.string.widget_ingredient,
+        String ingredientString = mContext.getResources().getString(R.string.widget_ingredient,
                 currentIngredient.getIngredient(),
                 Double.toString(currentIngredient.getQuantity()),
                 currentIngredient.getMeasure().toLowerCase());

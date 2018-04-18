@@ -1,53 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.detail.RecipeDetailsFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryLight">
 
-            <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/ingredients_card_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:elevation="10dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-
-                <TextView
-                    android:id="@+id/recipe_title_text_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    tools:text="Cheesecake" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/ingredients_title_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="See Ingredients (10 overall)"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_steps"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/ingredients_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
+                        android:paddingTop="16dp"
+                        android:text="Ingredients: "
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/ingredients_title_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
+                        tools:text="> Mango"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_card_view"
+                android:paddingTop="8dp"
+                />
+
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

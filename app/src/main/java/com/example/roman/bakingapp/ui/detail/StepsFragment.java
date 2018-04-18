@@ -6,16 +6,20 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.FragmentStepsBinding;
 import com.example.roman.bakingapp.ui.ViewModelFactory;
 import com.example.roman.bakingapp.ui.main.MainActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -61,9 +65,22 @@ public class StepsFragment extends Fragment
             mRecipeId = getArguments().getInt(MainActivity.EXTRA_RECIPE_ID);
             mViewModel = ViewModelProviders.of(this, mFactory)
                     .get(StepsViewModel.class);
+
             mViewModel.getRecipe(mRecipeId).observe(this, recipe -> {
                 mAdapter.swapStepsList(recipe.getSteps());
-                mBinding.recipeTitleTextView.setText(recipe.getName());
+
+                ((AppCompatActivity)getActivity()).getSupportActionBar()
+                        .setTitle(recipe.getName());
+
+                List<Ingredient> ingredients = recipe.getIngredients();
+                String ingredientsString = "";
+                for (Ingredient ingredient : ingredients) {
+                    ingredientsString += "\u25BA " + ingredient.getIngredient() + ": " +
+                            ingredient.getQuantity() + " " +
+                            ingredient.getMeasure().toLowerCase() + "\n";
+                }
+                mBinding.ingredientsTitleTextView.setText(ingredientsString);
+                //mBinding.recipeTitleTextView.setText(recipe.getName());
             });
         }
 
