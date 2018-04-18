@@ -1,19 +1,16 @@
-package com.example.roman.bakingapp;
+package com.example.roman.bakingapp.widget;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 
+import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
-import com.example.roman.bakingapp.ui.detail.RecipeDetailsFragment;
 import com.example.roman.bakingapp.ui.detail.StepsActivity;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 

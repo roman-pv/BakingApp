@@ -4,8 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -13,16 +11,14 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "steps",
         primaryKeys = {"id", "recipeId"},
-        //indices = {@Index("id"), @Index("recipeId")},
+        indices = {@Index("id"), @Index("recipeId")},
         foreignKeys = @ForeignKey(entity = RecipeEntity.class,
                 parentColumns = "id",
                 childColumns = "recipeId",
                 onDelete = CASCADE))
 public class Step {
-    @NonNull
-    private Integer id;
-    @NonNull
-    private Integer recipeId;
+    private int id;
+    private int recipeId;
     private String shortDescription;
     private String description;
     @SerializedName("videoURL")
@@ -30,7 +26,7 @@ public class Step {
     @SerializedName("thumbnailURL")
     private String thumbnailUrl;
 
-    public Step(Integer id, Integer recipeId, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
+    public Step(int id, int recipeId, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
         this.id = id;
         this.recipeId = recipeId;
         this.shortDescription = shortDescription;
@@ -40,7 +36,7 @@ public class Step {
     }
 
     @Ignore
-    public Step(Integer id, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
+    public Step(int id, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.description = description;
@@ -48,19 +44,19 @@ public class Step {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Integer getRecipeId() {
+    public int getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(Integer recipeId) {
+    public void setRecipeId(int recipeId) {
         this.recipeId = recipeId;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

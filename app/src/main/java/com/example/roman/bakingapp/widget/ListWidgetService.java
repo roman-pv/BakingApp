@@ -1,13 +1,13 @@
-package com.example.roman.bakingapp;
+package com.example.roman.bakingapp.widget;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.DataRepository;
 import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.ui.main.MainActivity;

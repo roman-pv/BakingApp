@@ -1,8 +1,6 @@
 package com.example.roman.bakingapp.ui.main;
 
-import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
@@ -11,8 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.widget.Toast;
 
-import com.example.roman.bakingapp.IngredientsWidgetProvider;
-import com.example.roman.bakingapp.IngredientsWidgetService;
+import com.example.roman.bakingapp.widget.IngredientsWidgetService;
 import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.databinding.ActivityMainBinding;
 import com.example.roman.bakingapp.ui.ViewModelFactory;

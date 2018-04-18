@@ -18,12 +18,12 @@ public class Ingredient {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private Integer recipeId;
+    private int recipeId;
     private double quantity;
     private String measure;
     private String ingredient;
 
-    public Ingredient(int id, Integer recipeId, double quantity, String measure, String ingredient) {
+    public Ingredient(int id, int recipeId, double quantity, String measure, String ingredient) {
         this.id = id;
         this.recipeId = recipeId;
         this.quantity = quantity;
@@ -46,11 +46,11 @@ public class Ingredient {
         this.id = id;
     }
 
-    public Integer getRecipeId() {
+    public int getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(Integer recipeId) {
+    public void setRecipeId(int recipeId) {
         this.recipeId = recipeId;
     }
 

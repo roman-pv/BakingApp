@@ -1,4 +1,4 @@
-package com.example.roman.bakingapp;
+package com.example.roman.bakingapp.widget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
@@ -6,10 +6,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.DataRepository;
-import com.example.roman.bakingapp.data.model.Recipe;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
-import com.example.roman.bakingapp.ui.main.MainActivity;
 
 import javax.inject.Inject;
 

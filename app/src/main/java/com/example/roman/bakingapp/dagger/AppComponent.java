@@ -17,13 +17,15 @@ import dagger.android.AndroidInjector;
         NetworkModule.class,
         DatabaseModule.class,
         AppModule.class,
-        ActivityBuilder.class})
-public interface AppComponent extends AndroidInjector<BakingApp>{
+        ActivityBuilder.class,
+        ServicesBuilder.class})
+public interface AppComponent extends AndroidInjector<BakingApp> {
 
     @Component.Builder
     interface Builder {
         @BindsInstance
         Builder application(Application application);
+
         AppComponent build();
     }
 
