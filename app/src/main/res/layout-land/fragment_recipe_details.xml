@@ -21,11 +21,22 @@
         <ImageView
             android:id="@+id/step_video_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/food_placeholder_image" />
+            android:src="@drawable/background_box" />
+
+        <ImageView
+            android:id="@+id/no_video_icon_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/ic_no_videos"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/step_detailed_description"
@@ -33,11 +44,11 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/step_video_view"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            tools:text="Ingredients"/>
+            android:text="No video in this step: \n switch to portrait to see recipe instructions"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -67,7 +67,6 @@ public class RecipeDetailsFragment extends Fragment {
     StepsViewModel mViewModel;
 
 
-
     @Override
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
@@ -102,7 +101,15 @@ public class RecipeDetailsFragment extends Fragment {
                 int stepNumber = mCurrentStepNumber - 1;
                 changeStep(stepNumber);
             });
+            mBinding.previousStepTextView.setOnClickListener((View v) -> {
+                int stepNumber = mCurrentStepNumber - 1;
+                changeStep(stepNumber);
+            });
             mBinding.nextImageView.setOnClickListener((View v) -> {
+                int stepNumber = mCurrentStepNumber + 1;
+                changeStep(stepNumber);
+            });
+            mBinding.nextStepTextView.setOnClickListener((View v) -> {
                 int stepNumber = mCurrentStepNumber + 1;
                 changeStep(stepNumber);
             });
@@ -125,7 +132,7 @@ public class RecipeDetailsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mViewModel.getRecipe(mRecipeId).observe(this, this :: handleRecipe);
+        mViewModel.getRecipe(mRecipeId).observe(this, this::handleRecipe);
     }
 
 
@@ -167,9 +174,10 @@ public class RecipeDetailsFragment extends Fragment {
         if (mIsVideo) {
             mBinding.stepVideoView.setVisibility(View.VISIBLE);
             mBinding.stepVideoPlaceholder.setVisibility(View.GONE);
+            mBinding.noVideoIconImageView.setVisibility(View.GONE);
             if (!mIsTablet &&
                     getResources().getConfiguration().orientation
-                    == Configuration.ORIENTATION_LANDSCAPE) {
+                            == Configuration.ORIENTATION_LANDSCAPE) {
                 hideSystemUi();
             }
             initializePlayer();
@@ -179,28 +187,35 @@ public class RecipeDetailsFragment extends Fragment {
 
     private void checkAndCorrectStepNumber() {
         if (mCurrentStepNumber >= mRecipe.getSteps().size()) {
-            mCurrentStepNumber = INGREDIENTS_VIEW;
-        } else if (mCurrentStepNumber < 0 && mCurrentStepNumber != INGREDIENTS_VIEW) {
+            mCurrentStepNumber = 0;
+        } else if (mCurrentStepNumber < 0) {
             mCurrentStepNumber = mRecipe.getSteps().size() - 1;
         }
     }
 
     private void displayCurrentStepInfo() {
-        if (mCurrentStepNumber == INGREDIENTS_VIEW) {
-            mIsVideo = false;
-            mBinding.stepVideoView.setVisibility(View.INVISIBLE);
-            for (Ingredient ingredient : mRecipe.getIngredients()) {
-                String line = ingredient.getQuantity() + ingredient.getMeasure() +
-                        ": " + ingredient.getIngredient() + "\n\n";
-                mBinding.stepDetailedDescription.append(line);
-            }
-        } else {
-            Step step = mRecipe.getSteps().get(mCurrentStepNumber);
+        Step step = mRecipe.getSteps().get(mCurrentStepNumber);
+        if (mIsTablet || getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT) {
             mBinding.stepDetailedDescription.setText(step.getDescription());
-            if (step.getVideoUrl() == null || step.getVideoUrl().isEmpty()) {
-                mIsVideo = false;
-            } else mIsVideo = true;
         }
+        if (!mIsTablet && getResources().getConfiguration().orientation
+                        == Configuration.ORIENTATION_PORTRAIT) {
+            String currentStepCount = "";
+
+            if (mCurrentStepNumber != 0) {
+                currentStepCount = getActivity().getResources()
+                        .getString(R.string.step_count,
+                                mCurrentStepNumber, mRecipe.getSteps().size() - 1);
+            } else {
+                currentStepCount = getActivity().getString(R.string.introduction_step);
+            }
+
+            mBinding.stepsNavigationStepCount.setText(currentStepCount);
+        }
+        if (step.getVideoUrl() == null || step.getVideoUrl().isEmpty()) {
+            mIsVideo = false;
+        } else mIsVideo = true;
     }
 
     private void initializePlayer() {
