@@ -1,5 +1,6 @@
 package com.example.roman.bakingapp.ui.detail;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.dagger.Injectable;
 import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.FragmentStepsBinding;
-import com.example.roman.bakingapp.ui.ViewModelFactory;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 
 import java.util.List;
@@ -29,7 +30,7 @@ import dagger.android.support.AndroidSupportInjection;
  *
  */
 public class StepsFragment extends Fragment
-        implements StepsAdapter.StepsAdapterOnItemClickHandler {
+        implements Injectable, StepsAdapter.StepsAdapterOnItemClickHandler {
 
     private StepsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -38,15 +39,17 @@ public class StepsFragment extends Fragment
 
     private int mRecipeId;
 
+    private static final String NESTED_SCROLL_POSITION_KEY = "scroll_position";
+    private int mNestedScrollPosition;
+
     @Inject
-    ViewModelFactory mFactory;
+    public ViewModelProvider.Factory mFactory;
 
     StepsViewModel mViewModel;
 
 
     @Override
     public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
 
@@ -60,6 +63,10 @@ public class StepsFragment extends Fragment
         View view = mBinding.getRoot();
 
         setupStepsAdapter();
+
+        if (savedInstanceState != null) {
+            mNestedScrollPosition = savedInstanceState.getInt(NESTED_SCROLL_POSITION_KEY);
+        }
 
         if (getArguments() != null) {
             mRecipeId = getArguments().getInt(MainActivity.EXTRA_RECIPE_ID);
@@ -80,7 +87,11 @@ public class StepsFragment extends Fragment
                             ingredient.getMeasure().toLowerCase() + "\n";
                 }
                 mBinding.ingredientsTitleTextView.setText(ingredientsString);
-                //mBinding.recipeTitleTextView.setText(recipe.getName());
+
+                mBinding.nestedScrollView.post(() -> {
+                    mBinding.nestedScrollView.scrollTo(0, mNestedScrollPosition);
+                });
+
             });
         }
 
@@ -137,5 +148,13 @@ public class StepsFragment extends Fragment
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(NESTED_SCROLL_POSITION_KEY, mBinding.nestedScrollView.getScrollY());
+
+
     }
 }

@@ -1,6 +1,7 @@
 package com.example.roman.bakingapp.data.model;
 
 import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Relation;
 
 import java.util.List;
@@ -12,6 +13,18 @@ public class RecipeWithStepsAndIngredients {
     public List<Ingredient> ingredients;
     @Relation(parentColumn = "id", entityColumn = "recipeId", entity = Step.class)
     public List<Step> steps;
+
+    @Ignore
+    public RecipeWithStepsAndIngredients(RecipeEntity recipe, List<Ingredient> ingredients,
+                                         List<Step> steps) {
+        this.recipe = recipe;
+        this.ingredients = ingredients;
+        this.steps = steps;
+    }
+
+    public RecipeWithStepsAndIngredients() {
+    }
+
 
     public Integer getId() {
         return recipe.getId();

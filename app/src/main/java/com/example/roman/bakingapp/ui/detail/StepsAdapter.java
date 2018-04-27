@@ -41,6 +41,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapter
         Step currentStep = mSteps.get(position);
 
         String shortDescription = currentStep.getShortDescription();
+        shortDescription = shortDescription.replaceAll("[.]$", "");
 
         holder.binding.stepDescriptionTextView.setText(shortDescription);
 

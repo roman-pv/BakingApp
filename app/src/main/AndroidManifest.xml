@@ -41,6 +41,8 @@
         <activity
             android:name=".ui.detail.RecipeDetailsActivity"
             android:parentActivityName=".ui.detail.StepsActivity" />
+        <activity android:name=".testing.SingleFragmentActivity">
+        </activity>
     </application>
 
 </manifest>

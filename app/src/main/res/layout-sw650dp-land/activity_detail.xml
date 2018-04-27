@@ -10,7 +10,7 @@
         android:name="com.example.roman.bakingapp.ui.detail.StepsOverviewFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"/>
+        android:layout_weight="1"/>
     <FrameLayout
         android:id="@+id/steps_details_fragment"
         android:name="com.example.roman.bakingapp.ui.detail.StepsDetailsFragment"

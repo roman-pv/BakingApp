@@ -2,6 +2,7 @@ package com.example.roman.bakingapp.ui.detail;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.dagger.Injectable;
 import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
@@ -38,7 +40,7 @@ import dagger.android.support.AndroidSupportInjection;
  * Some lines of code, related to ExoPlayer, were taken from this lesson:
  * https://codelabs.developers.google.com/codelabs/exoplayer-intro
  */
-public class RecipeDetailsFragment extends Fragment {
+public class RecipeDetailsFragment extends Fragment implements Injectable {
 
     private FragmentRecipeDetailsBinding mBinding;
 
@@ -62,14 +64,13 @@ public class RecipeDetailsFragment extends Fragment {
     private boolean mPlayWhenReady = true;
 
     @Inject
-    ViewModelFactory mFactory;
+    ViewModelProvider.Factory mFactory;
 
     StepsViewModel mViewModel;
 
 
     @Override
     public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
 
