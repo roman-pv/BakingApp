@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
 
+import com.example.roman.bakingapp.dagger.AppInjector;
 import com.example.roman.bakingapp.dagger.DaggerAppComponent;
 
 import javax.inject.Inject;
@@ -24,11 +25,7 @@ public class BakingApp extends Application implements HasActivityInjector, HasSe
     public void onCreate() {
         super.onCreate();
 
-        DaggerAppComponent
-                .builder()
-                .application(this)
-                .build()
-                .inject(this);
+        AppInjector.init(this);
     }
 
     @Override
