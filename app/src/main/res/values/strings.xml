@@ -36,4 +36,7 @@
     <string name="widget_recipe_title">Baking App: %s</string>
     <string name="widget_ingredient">%1$s: %2$s %3$s</string>
 
+    <!-- Snackbar notification text -->
+    <string name="snackbar_text">List of ingredients is added to a widget</string>
+
 </resources>

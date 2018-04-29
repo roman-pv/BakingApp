@@ -8,6 +8,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
@@ -88,7 +90,8 @@ public class RecipesFragment extends Fragment
     public void onWidgetButtonClick(int id) {
         mViewModel.setRecipeIdPreference(id);
         IngredientsWidgetService.startActionUpdateIngredientsWidgets(getContext());
-        Toast.makeText(getContext(), "List of ingredients is added to a widget", Toast.LENGTH_LONG).show();
+        Snackbar.make(mBinding.fragmentRecipesId, getText(R.string.snackbar_text),
+                Snackbar.LENGTH_SHORT).show();
     }
 
     private void setupRecipesAdapter() {
