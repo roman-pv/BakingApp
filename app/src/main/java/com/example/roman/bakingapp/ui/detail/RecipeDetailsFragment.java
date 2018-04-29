@@ -205,18 +205,7 @@ public class RecipeDetailsFragment extends Fragment implements Injectable {
 
             mBinding.stepsNavigationStepCount.setText(currentStepCount);
         }
-        mIsVideo = isVideo(step);
-    }
-
-    private boolean isVideo(Step step) {
-        boolean isVideo = step.getVideoUrl() != null && !step.getVideoUrl().isEmpty();
-        String thumbnailUrl = step.getThumbnailUrl();
-        if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
-            if (!isVideo) {
-                isVideo = RecipeUtilities.isVideoUrl(thumbnailUrl);
-            }
-        }
-        return isVideo;
+        mIsVideo = step.getVideoUrl() != null && !step.getVideoUrl().isEmpty();
     }
 
     private void initializePlayer() {
@@ -231,7 +220,6 @@ public class RecipeDetailsFragment extends Fragment implements Injectable {
         }
 
         String videoUrl = mRecipe.getSteps().get(mCurrentStepNumber).getVideoUrl();
-        if (videoUrl.isEmpty()) videoUrl = mRecipe.getSteps().get(mCurrentStepNumber).getThumbnailUrl();
         Uri uri = Uri.parse(videoUrl);
         MediaSource mediaSource = buildMediaSourse(uri);
         mPlayer.prepare(mediaSource);
