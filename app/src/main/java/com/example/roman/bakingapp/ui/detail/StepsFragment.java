@@ -21,6 +21,7 @@ import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.FragmentStepsBinding;
 import com.example.roman.bakingapp.ui.main.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class StepsFragment extends Fragment
     private static final String NESTED_SCROLL_POSITION_KEY = "scroll_position";
     @Inject
     public ViewModelProvider.Factory mFactory;
+    @Inject
+    Picasso mPicasso;
     StepsViewModel mViewModel;
     private StepsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -97,7 +100,7 @@ public class StepsFragment extends Fragment
         mLayoutManager = new LinearLayoutManager(getContext());
         mBinding.recyclerViewSteps.setLayoutManager(mLayoutManager);
 
-        mAdapter = new StepsAdapter(getContext());
+        mAdapter = new StepsAdapter(getContext(), mPicasso);
         mAdapter.setOnItemClickHandler(this);
 
         mBinding.recyclerViewSteps.setAdapter(mAdapter);

@@ -18,6 +18,15 @@
             app:layout_constraintStart_toStartOf="parent" />
 
 
+        <ImageView
+            android:id="@+id/video_thumbnail_image_view"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_medium"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/circle" />
+
         <TextView
             android:id="@+id/step_description_text_view"
             android:layout_width="wrap_content"
@@ -27,7 +36,7 @@
             android:maxEms="47"
             android:paddingStart="@dimen/padding_medium"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/circle"
+            app:layout_constraintStart_toEndOf="@+id/video_thumbnail_image_view"
             tool:text="Prep the cookie crust. " />
 
         <ImageView

@@ -8,18 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.RecipeUtilities;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.RecyclerViewStepItemBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapterViewHolder> {
     private Context mContext;
+    private Picasso mPicasso;
     private List<Step> mSteps;
     private StepsAdapter.StepsAdapterOnItemClickHandler mClickHandler;
 
-    public StepsAdapter(Context context) {
+    public StepsAdapter(Context context, Picasso picasso) {
         this.mContext = context;
+        this.mPicasso = picasso;
     }
 
     public void setOnItemClickHandler(StepsAdapter.StepsAdapterOnItemClickHandler onItemClickHandler) {
@@ -45,7 +49,19 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapter
 
         holder.binding.stepDescriptionTextView.setText(shortDescription);
 
-        if (position == 0) {
+        String imageUrl = currentStep.getThumbnailUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            if (!RecipeUtilities.isVideoUrl(imageUrl)) {
+                holder.binding.videoThumbnailImageView.setVisibility(View.VISIBLE);
+                mPicasso.with(mContext)
+                        .load(imageUrl)
+                        .into(holder.binding.videoThumbnailImageView);
+            }
+        }
+
+        if (position == 0)
+
+        {
             holder.binding.circle.setVisibility(View.INVISIBLE);
         }
 
