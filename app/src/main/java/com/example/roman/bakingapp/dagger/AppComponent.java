@@ -22,6 +22,8 @@ import dagger.android.AndroidInjector;
         ServicesBuilder.class})
 public interface AppComponent extends AndroidInjector<BakingApp> {
 
+    void inject(BakingApp app);
+
     @Component.Builder
     interface Builder {
         @BindsInstance
@@ -29,6 +31,4 @@ public interface AppComponent extends AndroidInjector<BakingApp> {
 
         AppComponent build();
     }
-
-    void inject(BakingApp app);
 }

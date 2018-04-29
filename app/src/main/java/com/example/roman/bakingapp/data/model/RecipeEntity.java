@@ -18,36 +18,36 @@ public class RecipeEntity {
         this.image = image;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setServings(int servings) {
-        this.servings = servings;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getServings() {
         return servings;
     }
 
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
+
     public String getImage() {
         return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 }

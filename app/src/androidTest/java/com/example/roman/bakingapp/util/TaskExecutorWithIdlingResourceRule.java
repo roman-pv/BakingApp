@@ -29,6 +29,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * A Junit rule that registers Architecture Components' background threads as an Espresso idling
  * resource.
+ * code from
+ * https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
  */
 public class TaskExecutorWithIdlingResourceRule extends CountingTaskExecutorRule {
     private CopyOnWriteArrayList<IdlingResource.ResourceCallback> callbacks =

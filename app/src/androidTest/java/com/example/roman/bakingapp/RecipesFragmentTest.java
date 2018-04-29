@@ -36,12 +36,15 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.example.roman.bakingapp.ui.main.MainActivity.EXTRA_RECIPE_ID;
-import static junit.framework.Assert.assertTrue;
+import static com.example.roman.bakingapp.RecipeUtilities.EXTRA_RECIPE_ID;
+import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
+/** Testing suite for the UI test of the RecipesFragment
+ * Used some code from
+ * https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
+ */
 @RunWith(AndroidJUnit4.class)
 public class RecipesFragmentTest {
  @Rule

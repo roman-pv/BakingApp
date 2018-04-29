@@ -6,10 +6,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.RecipeUtilities;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.ui.detail.StepsActivity;
 import com.example.roman.bakingapp.ui.main.MainActivity;
@@ -19,26 +19,17 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 RecipeWithStepsAndIngredients recipe, int appWidgetId) {
 
-        Log.d("Widget_log", "updateAppWidget" + recipe.getId());
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_list_view);
-        // Set the GridWidgetService intent to act as the adapter for the GridView
+        // Set the ListWidgetService intent to act as the adapter for the ListView
         Intent intent = new Intent(context, ListWidgetService.class);
-        intent.putExtra(MainActivity.EXTRA_RECIPE_ID, recipe.getId());
+        intent.putExtra(RecipeUtilities.EXTRA_RECIPE_ID, recipe.getId());
         views.setRemoteAdapter(R.id.widget_list_view, intent);
-        // Set the PlantDetailActivity intent to launch when clicked
+        // Set the StepsActivity intent to launch when clicked
         Intent startActivityIntent = new Intent(context, StepsActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0,
                 startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
 
-//        Intent openRecipeIntent = new Intent(context, StepsActivity.class);
-//        Bundle extras = new Bundle();
-//        extras.putInt(MainActivity.EXTRA_RECIPE_ID, recipe.getId());
-//        openRecipeIntent.putExtra(MainActivity.EXTRA_RECIPE_ID, extras);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-//        views.setOnClickPendingIntent(R.id.widget_view, pendingIntent);
-        // Handle empty gardens
-        //views.setEmptyView(R.id.widget_list_view, R.id.empty_view);
         String title = context.getResources().getString(R.string.widget_recipe_title,
                 recipe.getName());
         views.setTextViewText(R.id.widget_recipe_title_text_view, title);
@@ -60,7 +51,6 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
      */
     public static void updateIngredientsWidgets(Context context, AppWidgetManager appWidgetManager,
                                                 RecipeWithStepsAndIngredients recipe, int[] appWidgetIds) {
-        Log.d("Widget_log", "updateIngredientsWidgets" + recipe.getId());
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, recipe, appWidgetId);
         }

@@ -20,16 +20,18 @@ import android.app.Application;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnitRunner;
 
-import com.example.roman.bakingapp.TestApp;
+import com.example.roman.bakingapp.BakingApp;
 
 
 /**
  * Custom runner to disable dependency injection.
+ * code from
+ * https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
  */
-public class RecipesTestRunner extends AndroidJUnitRunner {
+public class BakingAppTestRunner extends AndroidJUnitRunner {
     @Override
     public Application newApplication(ClassLoader cl, String className, Context context)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return super.newApplication(cl, TestApp.class.getName(), context);
+        return super.newApplication(cl, BakingApp.class.getName(), context);
     }
 }

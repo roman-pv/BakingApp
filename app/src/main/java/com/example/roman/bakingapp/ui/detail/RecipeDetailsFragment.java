@@ -1,7 +1,6 @@
 package com.example.roman.bakingapp.ui.detail;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -16,13 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.RecipeUtilities;
 import com.example.roman.bakingapp.dagger.Injectable;
-import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.model.Step;
 import com.example.roman.bakingapp.databinding.FragmentRecipeDetailsBinding;
-import com.example.roman.bakingapp.ui.ViewModelFactory;
-import com.example.roman.bakingapp.ui.main.MainActivity;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -34,40 +31,30 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 import javax.inject.Inject;
 
-import dagger.android.support.AndroidSupportInjection;
-
 /**
  * Some lines of code, related to ExoPlayer, were taken from this lesson:
  * https://codelabs.developers.google.com/codelabs/exoplayer-intro
  */
 public class RecipeDetailsFragment extends Fragment implements Injectable {
 
-    private FragmentRecipeDetailsBinding mBinding;
-
     public static final int INGREDIENTS_VIEW = -1;
     private static final String PLAYBACK_POSITION_KEY =
             "com.example.roman.bakingapp.ui.detail.playback_position";
     private static final String PLAY_WHEN_READY_KEY =
             "com.example.roman.bakingapp.ui.detail.play_when_ready";
-
+    @Inject
+    ViewModelProvider.Factory mFactory;
+    StepsViewModel mViewModel;
+    private FragmentRecipeDetailsBinding mBinding;
     private int mCurrentStepNumber;
     private RecipeWithStepsAndIngredients mRecipe;
     private int mRecipeId;
-
     private boolean mIsTablet;
-
     private boolean mIsVideo;
-
     private ExoPlayer mPlayer;
     private long mPlaybackPosition;
     private int mCurrentWindow;
     private boolean mPlayWhenReady = true;
-
-    @Inject
-    ViewModelProvider.Factory mFactory;
-
-    StepsViewModel mViewModel;
-
 
     @Override
     public void onAttach(Context context) {
@@ -87,8 +74,8 @@ public class RecipeDetailsFragment extends Fragment implements Injectable {
                 .get(StepsViewModel.class);
 
         if (getArguments() != null) {
-            mCurrentStepNumber = getArguments().getInt("step_num");
-            mRecipeId = getArguments().getInt(MainActivity.EXTRA_RECIPE_ID);
+            mCurrentStepNumber = getArguments().getInt(RecipeUtilities.EXTRA_STEP_NUMBER);
+            mRecipeId = getArguments().getInt(RecipeUtilities.EXTRA_RECIPE_ID);
         }
 
         if (savedInstanceState != null) {
@@ -121,8 +108,8 @@ public class RecipeDetailsFragment extends Fragment implements Injectable {
 
     private void changeStep(int newStepNumber) {
         Bundle bundle = new Bundle();
-        bundle.putInt("step_num", newStepNumber);
-        bundle.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
+        bundle.putInt(RecipeUtilities.EXTRA_STEP_NUMBER, newStepNumber);
+        bundle.putInt(RecipeUtilities.EXTRA_RECIPE_ID, mRecipeId);
         RecipeDetailsFragment stepsFragment = new RecipeDetailsFragment();
         stepsFragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
@@ -175,14 +162,17 @@ public class RecipeDetailsFragment extends Fragment implements Injectable {
         if (mIsVideo) {
             mBinding.stepVideoView.setVisibility(View.VISIBLE);
             mBinding.stepVideoPlaceholder.setVisibility(View.GONE);
-            mBinding.noVideoIconImageView.setVisibility(View.GONE);
             if (!mIsTablet &&
                     getResources().getConfiguration().orientation
                             == Configuration.ORIENTATION_LANDSCAPE) {
                 hideSystemUi();
+                mBinding.stepDetailedDescription.setVisibility(View.GONE);
             }
             initializePlayer();
+        } else {
+            mBinding.noVideoIconImageView.setVisibility(View.VISIBLE);
         }
+
     }
 
 
@@ -201,7 +191,7 @@ public class RecipeDetailsFragment extends Fragment implements Injectable {
             mBinding.stepDetailedDescription.setText(step.getDescription());
         }
         if (!mIsTablet && getResources().getConfiguration().orientation
-                        == Configuration.ORIENTATION_PORTRAIT) {
+                == Configuration.ORIENTATION_PORTRAIT) {
             String currentStepCount = "";
 
             if (mCurrentStepNumber != 0) {

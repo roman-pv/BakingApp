@@ -7,7 +7,8 @@ import com.example.roman.bakingapp.data.model.Step;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/** Creates sample mock class of the RecipeWithStepsAndIngredients
+ */
 public class TestRecipeCreator {
 
     public static RecipeWithStepsAndIngredients createTestRecipe() {

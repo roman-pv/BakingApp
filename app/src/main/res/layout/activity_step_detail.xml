@@ -3,5 +3,4 @@
     android:id="@+id/steps_details_fragment"
     android:name="com.example.roman.bakingapp.ui.detail.StepsDetailsFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</FrameLayout>
+    android:layout_height="match_parent"/>

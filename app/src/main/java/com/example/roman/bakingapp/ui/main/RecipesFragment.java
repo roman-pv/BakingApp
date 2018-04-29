@@ -24,25 +24,26 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
-import static com.example.roman.bakingapp.ui.main.MainActivity.EXTRA_RECIPE_ID;
+import static com.example.roman.bakingapp.RecipeUtilities.EXTRA_RECIPE_ID;
 
 public class RecipesFragment extends Fragment
         implements Injectable, RecipesAdapter.RecipesAdapterOnItemClickHandler {
 
     private static final String RECYCLER_STATE_KEY = "grid_state";
-
-    private RecipesViewModel mViewModel;
-    private FragmentRecipesBinding mBinding;
-
-    private RecipesAdapter mAdapter;
-    private GridLayoutManager mLayoutManager;
-    private Parcelable mRecyclerState;
+    private static final int SPAN_COUNT_TABLET_LANDSCAPE = 3;
+    private static final int SPAN_COUNT_TABLET_PORTRAIT = 2;
+    private static final int SPAN_COUNT_PHONE_LANDSCAPE = 2;
+    private static final int SPAN_COUNT_PHONE_PORTRAIT = 1;
 
     @Inject
     public ViewModelProvider.Factory mFactory;
-
     @Inject
     Picasso mPicasso;
+    private RecipesViewModel mViewModel;
+    private FragmentRecipesBinding mBinding;
+    private RecipesAdapter mAdapter;
+    private GridLayoutManager mLayoutManager;
+    private Parcelable mRecyclerState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +63,8 @@ public class RecipesFragment extends Fragment
 
         mViewModel.getRecipes().observe(this, recipes -> {
             if (recipes != null && recipes.size() > 0) {
+                mBinding.loadingIndicator.setVisibility(View.GONE);
+                mBinding.recyclerViewRecipes.setVisibility(View.VISIBLE);
                 mAdapter.swapRecipesList(recipes);
                 if (savedInstanceState != null) {
                     mRecyclerState = savedInstanceState.getParcelable(RECYCLER_STATE_KEY);
@@ -89,26 +92,34 @@ public class RecipesFragment extends Fragment
     }
 
     private void setupRecipesAdapter() {
-        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-        if (isTablet) {
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mLayoutManager = new GridLayoutManager(getContext(), 2);
-            } else {
-                mLayoutManager = new GridLayoutManager(getContext(), 3);
-            }
-        } else {
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mLayoutManager = new GridLayoutManager(getContext(), 1);
-            } else {
-                mLayoutManager = new GridLayoutManager(getContext(), 2);
-            }
-        }
+
+        int spanCount = getSpanCountForGridLayoutManager();
+
+        mLayoutManager = new GridLayoutManager(getContext(), spanCount);
+
         mBinding.recyclerViewRecipes.setLayoutManager(mLayoutManager);
 
         mAdapter = new RecipesAdapter(getContext(), mPicasso);
         mAdapter.setOnItemClickHandler(this);
 
         mBinding.recyclerViewRecipes.setAdapter(mAdapter);
+    }
+
+    private int getSpanCountForGridLayoutManager() {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return SPAN_COUNT_TABLET_PORTRAIT;
+            } else {
+                return SPAN_COUNT_TABLET_LANDSCAPE;
+            }
+        } else {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return SPAN_COUNT_PHONE_PORTRAIT;
+            } else {
+                return SPAN_COUNT_PHONE_LANDSCAPE;
+            }
+        }
     }
 
     @Override

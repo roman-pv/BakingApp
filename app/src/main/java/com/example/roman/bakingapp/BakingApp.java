@@ -5,11 +5,9 @@ import android.app.Application;
 import android.app.Service;
 
 import com.example.roman.bakingapp.dagger.AppInjector;
-import com.example.roman.bakingapp.dagger.DaggerAppComponent;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
@@ -19,13 +17,14 @@ public class BakingApp extends Application implements HasActivityInjector, HasSe
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
     @Inject
-    DispatchingAndroidInjector<Service>  serviceDispatchingAndroidInjector;
+    DispatchingAndroidInjector<Service> serviceDispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         AppInjector.init(this);
+
     }
 
     @Override

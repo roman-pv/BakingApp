@@ -27,6 +27,10 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+/**
+ * Used the code from
+ * https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
+ */
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;

@@ -30,7 +30,7 @@ public class IngredientsWidgetService extends IntentService {
     }
 
     /**
-     * Starts this service to perform UpdatePlantWidgets action with the given parameters. If
+     * Starts this service to perform UpdateIngredientsWidgets action with the given parameters. If
      * the service is already performing a task this action will be queued.
      *
      * @see IntentService
@@ -45,22 +45,24 @@ public class IngredientsWidgetService extends IntentService {
      */
     @Override
     protected void onHandleIntent(Intent intent) {
-                 handleActionUpdateIngredientsWidgets();
-        }
+        handleActionUpdateIngredientsWidgets();
+    }
 
 
     /**
-     * Handle action UpdatePlantWidgets in the provided background thread
+     * Handle action UpdateIngredientsWidgets in the provided background thread
      */
     private void handleActionUpdateIngredientsWidgets() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
                 new ComponentName(this, IngredientsWidgetProvider.class));
-        //Trigger data update to handle the GridView widgets and force a data refresh
+        //Trigger data update to handle the ListView widgets and force a data refresh
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list_view);
         //Now update all widgets
         int recipeId = mRepository.getRecipeIdPreference();
         RecipeWithStepsAndIngredients recipe = mRepository.getRecipeByIdOffline(recipeId);
-        IngredientsWidgetProvider.updateIngredientsWidgets(this, appWidgetManager, recipe, appWidgetIds);
+        if (recipe != null) {
+            IngredientsWidgetProvider.updateIngredientsWidgets(this, appWidgetManager, recipe, appWidgetIds);
+        }
     }
 }

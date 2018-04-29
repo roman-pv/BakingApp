@@ -3,7 +3,6 @@ package com.example.roman.bakingapp.dagger;
 import android.content.Context;
 
 import com.example.roman.bakingapp.data.remote.RecipesApi;
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;

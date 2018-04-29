@@ -2,15 +2,12 @@ package com.example.roman.bakingapp.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.roman.bakingapp.AppExecutors;
-import com.example.roman.bakingapp.R;
 import com.example.roman.bakingapp.data.local.RecipeDao;
 import com.example.roman.bakingapp.data.local.RecipeDatabase;
 import com.example.roman.bakingapp.data.local.RecipeIdSharedPreferences;
-import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.Recipe;
 import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.data.remote.RecipesApi;
@@ -24,6 +21,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Represents a single point of access to the data,
+ * providing access to the network requests, database and shared preferences
+ */
 @Singleton
 public class DataRepository {
 

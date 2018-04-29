@@ -14,11 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@android:color/white"
-            tools:text="Step 1 of 12"
             android:gravity="center_vertical"
-            android:paddingStart="24dp"
+            android:paddingStart="@dimen/padding_large"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            />
+            tools:text="Step 1 of 12" />
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/step_video_view"
@@ -44,6 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:src="@drawable/ic_no_videos"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/step_video_placeholder"
             app:layout_constraintEnd_toEndOf="@+id/step_video_placeholder"
             app:layout_constraintStart_toStartOf="@+id/step_video_placeholder"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="@dimen/padding_medium"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:background="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:elevation="4dp"/>
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
         <ImageView
@@ -83,29 +83,27 @@
             android:id="@+id/previous_step_text_view"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:gravity="center_vertical"
             android:elevation="4dp"
-            android:text="Back"
+            android:gravity="center_vertical"
+            android:text="@string/button_back"
             android:textAllCaps="true"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toEndOf="@+id/previous_image_view"
             app:layout_constraintBottom_toBottomOf="@+id/previous_image_view"
-            app:layout_constraintTop_toTopOf="@+id/previous_image_view"
-            />
+            app:layout_constraintStart_toEndOf="@+id/previous_image_view"
+            app:layout_constraintTop_toTopOf="@+id/previous_image_view" />
 
         <TextView
             android:id="@+id/next_step_text_view"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:gravity="center_vertical"
             android:elevation="4dp"
-            android:text="Next"
+            android:gravity="center_vertical"
+            android:text="@string/button_next"
             android:textAllCaps="true"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/next_image_view"
             app:layout_constraintBottom_toBottomOf="@+id/previous_image_view"
-            app:layout_constraintTop_toTopOf="@+id/previous_image_view"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/next_image_view"
+            app:layout_constraintTop_toTopOf="@+id/previous_image_view" />
 
         <ImageView
             android:id="@+id/next_image_view"

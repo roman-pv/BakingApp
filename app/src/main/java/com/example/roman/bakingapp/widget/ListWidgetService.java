@@ -3,11 +3,11 @@ package com.example.roman.bakingapp.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.roman.bakingapp.R;
+import com.example.roman.bakingapp.RecipeUtilities;
 import com.example.roman.bakingapp.data.DataRepository;
 import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.ui.main.MainActivity;
@@ -27,10 +27,8 @@ public class ListWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         AndroidInjection.inject(this);
-        Log.d("Widget_log", "RemoteViewsFactory launched");
         if (intent != null) {
-            int recipeId = intent.getIntExtra(MainActivity.EXTRA_RECIPE_ID, 0);
-            Log.d("Widget_log", "recieved intent to show ingredients for recipe No " + recipeId);
+            int recipeId = intent.getIntExtra(RecipeUtilities.EXTRA_RECIPE_ID, 0);
             return new ListRemoteViewsFactory(mContext, mRepository, recipeId);
         } else return null;
     }
@@ -57,8 +55,6 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     //called on start and when notifyAppWidgetViewDataChanged is called
     @Override
     public void onDataSetChanged() {
-        // Get all plant info ordered by creation time
-        //TODO: transfer call to ViewModel or Repository?
         mIngredients = mRepository.getRecipeByIdOffline(mRecipeId).getIngredients();
     }
 
@@ -75,8 +71,8 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     /**
      * This method acts like the onBindViewHolder method in an Adapter
      *
-     * @param position The current position of the item in the GridView to be displayed
-     * @return The RemoteViews object to display for the provided postion
+     * @param position The current position of the item in the ListView to be displayed
+     * @return The RemoteViews object to display for the provided position
      */
     @Override
     public RemoteViews getViewAt(int position) {
@@ -93,7 +89,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         views.setTextViewText(R.id.widget_ingredient, ingredientString);
 
         Bundle extras = new Bundle();
-        extras.putInt(MainActivity.EXTRA_RECIPE_ID, mRecipeId);
+        extras.putInt(RecipeUtilities.EXTRA_RECIPE_ID, mRecipeId);
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
         views.setOnClickFillInIntent(R.id.widget_list_item_layout, fillInIntent);
@@ -110,7 +106,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public int getViewTypeCount() {
-        return 1; // Treat all items in the GridView the same
+        return 1; // Treat all items the same
     }
 
     @Override

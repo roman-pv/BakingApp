@@ -5,7 +5,6 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
 
 import com.example.roman.bakingapp.data.model.Ingredient;
 import com.example.roman.bakingapp.data.model.Recipe;
@@ -36,7 +35,7 @@ public abstract class RecipeDao {
     public void bulkInsert(List<Recipe> recipes) {
 
         List<RecipeEntity> recipeEntities = new ArrayList<>();
-        for (Recipe recipe : recipes){
+        for (Recipe recipe : recipes) {
             Integer recipeId = recipe.getId();
             _insertRecipe(new RecipeEntity(recipeId, recipe.getName(),
                     recipe.getServings(), recipe.getImage()));

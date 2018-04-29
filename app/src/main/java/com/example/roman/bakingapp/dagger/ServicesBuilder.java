@@ -9,10 +9,10 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ServicesBuilder {
 
-        @ContributesAndroidInjector()
-        abstract ListWidgetService bindListWidgetService();
+    @ContributesAndroidInjector()
+    abstract ListWidgetService bindListWidgetService();
 
-        @ContributesAndroidInjector()
-        abstract IngredientsWidgetService bindIngredientsWidgetService();
+    @ContributesAndroidInjector()
+    abstract IngredientsWidgetService bindIngredientsWidgetService();
 
 }

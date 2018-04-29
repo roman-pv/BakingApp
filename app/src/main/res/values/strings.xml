@@ -16,16 +16,24 @@
         <item quantity="other">And it will get you %d servings.</item>
     </plurals>
 
+    <!-- Texts for DetailsFragment -->
     <string name="step_description_template">Step %1$d: %2$s </string>
-
     <string name="step_count">Step %1$d of %2$d</string>
     <string name="introduction_step">Introduction</string>
+    <string name="button_back">Back</string>
+    <string name="button_next">Next</string>
+    <string name="no_video_text">No video in this step:
+        \n switch to portrait to see recipe instructions</string>
 
+    <!-- Texts for StepsFragment -->
+    <string name="ingredients_header">Ingredients: </string>
+
+
+    <!-- SharedPreference key -->
     <string name="pref_recipe_id_key">recipe_id</string>
 
     <!-- Texts for an app widget -->
     <string name="widget_recipe_title">Baking App: %s</string>
     <string name="widget_ingredient">%1$s: %2$s %3$s</string>
-
 
 </resources>

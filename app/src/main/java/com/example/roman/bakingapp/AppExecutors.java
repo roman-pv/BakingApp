@@ -29,7 +29,7 @@ import javax.inject.Singleton;
 
 /**
  * Global executor pools for the whole application.
- *
+ * <p>
  * Used the code from https://github.com/googlecodelabs/android-build-an-app-architecture-components
  * and https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
  */

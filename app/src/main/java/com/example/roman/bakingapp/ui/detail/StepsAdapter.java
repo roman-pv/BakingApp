@@ -50,7 +50,6 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapter
         }
 
 
-
     }
 
     @Override

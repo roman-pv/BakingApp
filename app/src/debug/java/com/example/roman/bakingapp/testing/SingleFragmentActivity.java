@@ -25,12 +25,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.example.roman.bakingapp.R;
-import com.example.roman.bakingapp.ui.detail.StepsFragment;
 
-import static com.example.roman.bakingapp.ui.main.MainActivity.EXTRA_RECIPE_ID;
+import static com.example.roman.bakingapp.RecipeUtilities.EXTRA_RECIPE_ID;
 
 /**
  * Used for testing fragments inside a fake activity.
+ * Used the code from https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
  */
 public class SingleFragmentActivity extends AppCompatActivity {
     @Override

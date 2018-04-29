@@ -18,13 +18,13 @@
                 android:id="@+id/ingredients_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/padding_medium"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="8dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -37,23 +37,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingEnd="16dp"
-                        android:paddingStart="16dp"
-                        android:paddingTop="16dp"
-                        android:text="Ingredients: "
-                        android:textStyle="bold"
+                        android:paddingEnd="@dimen/padding_medium"
+                        android:paddingStart="@dimen/padding_medium"
+                        android:paddingTop="@dimen/padding_medium"
+                        android:text="@string/ingredients_header"
                         android:textSize="14sp"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/ingredients_title_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingEnd="16dp"
-                        android:paddingStart="16dp"
-                        tools:text="> Mango"
-                        android:textSize="14sp"/>
+                        android:paddingEnd="@dimen/padding_medium"
+                        android:paddingStart="@dimen/padding_medium"
+                        android:textSize="14sp"
+                        tools:text="> Mango" />
 
                 </LinearLayout>
 
@@ -65,9 +64,8 @@
                 android:id="@+id/recycler_view_steps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ingredients_card_view"
-                android:paddingTop="8dp"
-                />
+                android:paddingTop="@dimen/padding_small"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_card_view" />
 
 
         </android.support.constraint.ConstraintLayout>

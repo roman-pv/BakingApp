@@ -1,6 +1,5 @@
 package com.example.roman.bakingapp.dagger;
 
-import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
