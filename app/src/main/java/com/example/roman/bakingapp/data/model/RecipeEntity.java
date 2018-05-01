@@ -3,6 +3,9 @@ package com.example.roman.bakingapp.data.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * Room entity for a recipe (without the ingredients and steps)
+ */
 @Entity(tableName = "recipes")
 public class RecipeEntity {
     @PrimaryKey

@@ -18,6 +18,9 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
+/**
+ * Handles listView for a widget.
+ */
 public class ListWidgetService extends RemoteViewsService {
     @Inject
     Context mContext;
@@ -34,6 +37,10 @@ public class ListWidgetService extends RemoteViewsService {
     }
 }
 
+/**
+ * List Adapter for a widget listView.
+ *
+ */
 class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     Context mContext;

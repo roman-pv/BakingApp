@@ -28,6 +28,8 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 /**
+ * Allows to create a ViewModel using a constructor that takes additional arguments
+ *
  * Used the code from
  * https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample
  */

@@ -9,6 +9,10 @@ import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 
 import javax.inject.Inject;
 
+/**
+ * Mediates between StepsFragment and RecipeDetailsFragment and Data Repository,
+ * fetching necessary data for the Fragments to display
+ */
 public class StepsViewModel extends ViewModel {
 
     private DataRepository mRepository;

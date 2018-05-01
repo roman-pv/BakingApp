@@ -12,6 +12,9 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 
+/**
+ * Handles creation of dependencies via Dagger 2 api.
+ */
 public class BakingApp extends Application implements HasActivityInjector, HasServiceInjector {
 
     @Inject

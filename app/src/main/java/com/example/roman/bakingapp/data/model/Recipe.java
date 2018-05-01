@@ -2,6 +2,10 @@ package com.example.roman.bakingapp.data.model;
 
 import java.util.List;
 
+
+/**
+ * POJO class for Recipes as represented in JSON
+ */
 public class Recipe {
     private Integer id;
     private String name;

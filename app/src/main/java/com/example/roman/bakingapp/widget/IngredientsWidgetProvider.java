@@ -14,6 +14,10 @@ import com.example.roman.bakingapp.data.model.RecipeWithStepsAndIngredients;
 import com.example.roman.bakingapp.ui.detail.StepsActivity;
 import com.example.roman.bakingapp.ui.main.MainActivity;
 
+/**
+ * Updates and populates homescreen widget.
+ *
+ */
 public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,

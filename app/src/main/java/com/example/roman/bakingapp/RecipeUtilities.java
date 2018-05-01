@@ -1,18 +1,16 @@
 package com.example.roman.bakingapp;
 
-import android.util.Log;
-
 import com.example.roman.bakingapp.data.model.Ingredient;
 
 import java.util.List;
 
+/**
+ * Helper functions and commonly used constants
+ */
 public class RecipeUtilities {
 
     public final static String EXTRA_RECIPE_ID = "com.example.roman.bakingapp.extra.recipe_id";
     public final static String EXTRA_STEP_NUMBER = "com.example.roman.bakingapp.extra.step_number";
-
-    private final static String MP4_EXTENSION = "mp4";
-
 
     public static String ingredientsListToString(List<Ingredient> ingredients) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -42,13 +40,6 @@ public class RecipeUtilities {
 
     public static String clearDescriptionString(String string) {
         return string.replaceAll("\ufffd", " ");
-    }
-
-
-    public static boolean isVideoUrl(String url) {
-        String fileExtention = url.substring(url.length() - 3, url.length());
-        Log.d("EXTENSION", fileExtention);
-        return fileExtention.equals(MP4_EXTENSION);
     }
 
 }

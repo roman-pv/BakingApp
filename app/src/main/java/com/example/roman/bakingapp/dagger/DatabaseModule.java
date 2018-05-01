@@ -13,6 +13,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Provides instances of all classes required access the database
+ */
 @Module
 public class DatabaseModule {
 

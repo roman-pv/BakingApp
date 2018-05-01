@@ -8,6 +8,9 @@ import javax.inject.Singleton;
 import dagger.Binds;
 import dagger.Module;
 
+/**
+ * Provides instances of Application and ApplicationContext.
+ */
 @Module
 public interface AppModule {
 

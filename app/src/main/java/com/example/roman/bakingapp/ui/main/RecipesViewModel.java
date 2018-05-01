@@ -11,6 +11,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * Mediates between RecipesFragment and Data Repository,
+ * fetching necessary data for the RecipesFragment to display
+ */
 public class RecipesViewModel extends ViewModel {
 
     private final DataRepository mRepository;

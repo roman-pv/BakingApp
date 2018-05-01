@@ -17,7 +17,7 @@ import java.util.List;
 
 
 /**
- * Some ideas taken from this post:
+ * Some ideas were taken from this post:
  * https://stackoverflow.com/questions/44667160/android-room-insert-relation-entities-using-room
  */
 @Dao

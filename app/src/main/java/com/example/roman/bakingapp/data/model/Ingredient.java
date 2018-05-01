@@ -8,6 +8,9 @@ import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
+/**
+ * POJO class for JSON and Room entity with ingredients information
+ */
 @Entity(tableName = "ingredients",
         indices = {@Index("id"), @Index("recipeId")},
         foreignKeys = @ForeignKey(entity = RecipeEntity.class,

@@ -14,6 +14,9 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Provides instances of all classes required to access data from the Internet
+ */
 @Module
 public class NetworkModule {
 

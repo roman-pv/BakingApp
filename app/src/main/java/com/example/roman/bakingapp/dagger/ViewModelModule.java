@@ -11,6 +11,9 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
 
+/**
+ * Allows Dagger to map the key (class) to a value (object) for ViewModelFactory
+ */
 @Module
 abstract class ViewModelModule {
     @Binds

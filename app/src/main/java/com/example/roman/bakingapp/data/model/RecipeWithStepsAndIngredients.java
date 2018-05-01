@@ -6,6 +6,9 @@ import android.arch.persistence.room.Relation;
 
 import java.util.List;
 
+/**
+ * Room entity for a recipe (with the ingredients and steps)
+ */
 public class RecipeWithStepsAndIngredients {
     @Embedded
     public RecipeEntity recipe;

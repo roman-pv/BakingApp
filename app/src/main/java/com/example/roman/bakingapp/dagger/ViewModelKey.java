@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 
 import dagger.MapKey;
 
+/**
+ * Key allowing Dagger to map ViewModel classes
+ */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

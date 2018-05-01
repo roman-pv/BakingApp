@@ -11,6 +11,9 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 
+/**
+ * Application component connecting modules for dependency injection.
+ */
 @Singleton
 @Component(modules = {
         AndroidInjectionModule.class,

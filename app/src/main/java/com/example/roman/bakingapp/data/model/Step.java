@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
+/**
+ * POJO class for JSON and Room entity with steps information
+ */
 @Entity(tableName = "steps",
         primaryKeys = {"id", "recipeId"},
         indices = {@Index("id"), @Index("recipeId")},
