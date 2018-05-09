@@ -13,42 +13,42 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="true"
             android:paddingTop="@dimen/padding_medium">
 
-                <LinearLayout
-                    android:id="@+id/ingredients"
+            <LinearLayout
+                android:id="@+id/ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_medium"
+                android:background="@drawable/ingredients_background_box"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/ingredients_title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/ingredients_background_box"
-                    android:layout_margin="@dimen/padding_medium">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/padding_medium"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:paddingTop="@dimen/padding_medium"
+                    android:text="@string/ingredients_header"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/ingredients_title_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/padding_medium"
+                    android:paddingEnd="@dimen/padding_medium"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:textSize="14sp"
+                    tools:text="> Mango" />
 
-                    <TextView
-                        android:id="@+id/ingredients_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:paddingEnd="@dimen/padding_medium"
-                        android:paddingStart="@dimen/padding_medium"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:text="@string/ingredients_header"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/ingredients_title_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:paddingEnd="@dimen/padding_medium"
-                        android:paddingStart="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:textSize="14sp"
-                        tools:text="> Mango" />
-
-                </LinearLayout>
-
+            </LinearLayout>
 
 
             <android.support.v7.widget.RecyclerView

@@ -26,9 +26,8 @@ An app to view video recipes. It is one of the projects for Udacity Android Deve
 
 ## Screenshots
 
-<img width="40%" src="screenshots/Screenshot1.png" /> <img width="40%" src="screenshots/Screenshot2.png" /> 
-<img width="70%" src="screenshots/Screenshot3.png" /> 
-<img width="70%" src="screenshots/Screenshot4.png" />
+<img width="33%" src="screenshots/Screenshot1.png" /> <img width="33%" src="screenshots/Screenshot2.png" /> <img width="33%" src="screenshots/Screenshot3.png" /> 
+<img width="75%" src="screenshots/Screenshot4.png" />
 <img width="70%" src="screenshots/Screenshot5.png" />
 
 

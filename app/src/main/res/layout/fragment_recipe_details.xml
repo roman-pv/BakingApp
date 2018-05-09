@@ -17,6 +17,7 @@
             android:gravity="center_vertical"
             android:paddingStart="@dimen/padding_large"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textSize="16sp"
             tools:text="Step 1 of 12" />
 
         <com.google.android.exoplayer2.ui.PlayerView
@@ -53,9 +54,10 @@
             android:id="@+id/step_detailed_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:justificationMode="inter_word"
             android:padding="@dimen/padding_medium"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/step_video_view"
