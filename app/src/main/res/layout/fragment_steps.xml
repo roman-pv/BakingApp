@@ -24,7 +24,6 @@
                 android:background="@drawable/ingredients_background_box"
                 android:orientation="vertical">
 
-
                 <TextView
                     android:id="@+id/ingredients_title"
                     android:layout_width="match_parent"
