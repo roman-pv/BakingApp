@@ -54,12 +54,12 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesA
         if (image != null && !image.isEmpty()) {
             mPicasso.with(mContext)
                     .load(currentRecipe.getImage())
-                    .placeholder(R.drawable.food_placeholder_image)
-                    .error(R.drawable.food_placeholder_image)
+                    .placeholder(R.drawable.eggs)
+                    .error(R.drawable.eggs)
                     .into(holder.binding.recipeImageView);
         } else {
             mPicasso.with(mContext)
-                    .load(R.drawable.food_placeholder_image)
+                    .load(R.drawable.eggs)
                     .into(holder.binding.recipeImageView);
         }
 

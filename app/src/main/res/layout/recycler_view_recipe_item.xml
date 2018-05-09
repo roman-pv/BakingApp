@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:elevation="10dp"
+        android:elevation="1dp"
         app:cardCornerRadius="8dp">
 
         <android.support.constraint.ConstraintLayout
@@ -19,34 +19,34 @@
             <ImageView
                 android:id="@+id/recipe_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:scaleType="centerCrop"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/food_placeholder_image" />
+                tools:src="@drawable/eggs" />
 
             <TextView
                 android:id="@+id/recipe_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#4D000000"
-                android:gravity="center"
-                android:padding="@dimen/padding_small"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/recipe_image_view"
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_image_view"
                 tools:text="Delicious cookie" />
 
             <TextView
                 android:id="@+id/steps_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
                 android:gravity="center_vertical"
-                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/recipe_title_text_view"
                 tools:text="@string/steps" />
 
@@ -56,38 +56,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/steps_text_view"
                 tools:text="@string/servings" />
-
-
-            <TextView
-                android:id="@+id/explore_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/padding_medium"
-                android:paddingTop="@dimen/padding_small"
-                android:text="@string/explore"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryVeryDark"
-                app:layout_constraintStart_toEndOf="@id/widget_button"
-                app:layout_constraintTop_toTopOf="@+id/widget_button" />
 
             <TextView
                 android:id="@+id/widget_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingBottom="@dimen/padding_medium"
-                android:paddingEnd="@dimen/padding_medium"
-                android:paddingStart="@dimen/padding_medium"
-                android:paddingTop="@dimen/padding_small"
+                android:paddingBottom="16dp"
+                android:paddingEnd="40dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
                 android:text="@string/widget"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimaryVeryDark"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/servings_text_view" />
 
         </android.support.constraint.ConstraintLayout>
