@@ -35,7 +35,7 @@ An app to view video recipes. It is one of the projects for Udacity Android Deve
 License
 -------
 ```
-Copyright 2018 [Roman Potapov][8]
+Copyright 2018 Roman Potapov
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -57,5 +57,4 @@ limitations under the License.
 [5]: https://github.com/google/ExoPlayer
 [6]: https://developer.android.com/training/testing/espresso/
 [7]: https://github.com/mockito/mockito
-[8]: https://www.linkedin.com/in/roman-potapov
 
